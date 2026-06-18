@@ -41,7 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
         stylize: 100,
         chaos: 0,
         weird: 0,
-        version: '--v 8.1'
+        version: '--v 8.1',
+        engine: 'midjourney', // 'midjourney' | 'dalle' | 'sd'
+        dalleStyle: 'vivid', // 'vivid' | 'natural'
+        dalleQuality: 'hd', // 'hd' | 'standard'
+        cfgScale: 7.0,
+        negativeTags: []
     };
 
     // ----------------------------------------------------------------
@@ -77,54 +82,90 @@ document.addEventListener('DOMContentLoaded', () => {
         const isHdActive = btnHd && btnHd.classList.contains('active');
 
         // If nothing is written or selected, show placeholder
-        if (!promptText && !state.aspectRatio && state.stylize === 100 && state.chaos === 0 && state.weird === 0 && !isRawActive && !isHdActive) {
+        const isDefaultState = !promptText && !state.aspectRatio && state.stylize === 100 && state.chaos === 0 && state.weird === 0 && !isRawActive && !isHdActive && state.negativeTags.length === 0;
+
+        if (isDefaultState) {
             compiledPromptText.textContent = "A futuristic astronaut walking through a mystical purple glowing forest...";
             document.getElementById('char-count').textContent = '0';
             document.getElementById('word-count').textContent = '0';
             return;
         }
 
-        // 3. Append Engine Parameters
-        let parameterParts = [];
+        // 3. Platform/Engine Specific Compilation
+        if (state.engine === 'midjourney') {
+            let parameterParts = [];
 
-        // Aspect ratio parameter
-        if (state.aspectRatio) {
-            parameterParts.push(state.aspectRatio);
+            // Aspect ratio parameter
+            if (state.aspectRatio) {
+                parameterParts.push(state.aspectRatio);
+            }
+
+            // Stylize parameter (append only if it differs from default 100)
+            if (parseInt(state.stylize) !== 100) {
+                parameterParts.push(`--s ${state.stylize}`);
+            }
+
+            // Chaos parameter (append only if greater than 0)
+            if (parseInt(state.chaos) > 0) {
+                parameterParts.push(`--c ${state.chaos}`);
+            }
+
+            // Weird parameter (append only if greater than 0)
+            if (parseInt(state.weird) > 0) {
+                parameterParts.push(`--w ${state.weird}`);
+            }
+
+            // Raw Mode style tag
+            if (isRawActive) {
+                parameterParts.push('--style raw');
+            }
+
+            // Native HD rendering tag
+            if (isHdActive) {
+                parameterParts.push('--hd');
+            }
+
+            // Version parameter (always append version tag)
+            if (state.version) {
+                parameterParts.push(state.version);
+            }
+
+            // Combine base prompt text and engine parameters
+            if (parameterParts.length > 0) {
+                promptText += (promptText ? ' ' : '') + parameterParts.join(' ');
+            }
         }
+        else if (state.engine === 'dalle') {
+            // DALL-E 3 uses descriptive natural text instead of raw parameters
+            let dalleDetails = [];
 
-        // Stylize parameter (append only if it differs from default 100)
-        if (parseInt(state.stylize) !== 100) {
-            parameterParts.push(`--s ${state.stylize}`);
+            if (state.aspectRatio === '--ar 16:9') {
+                dalleDetails.push('widescreen 16:9 aspect ratio');
+            } else if (state.aspectRatio === '--ar 9:16') {
+                dalleDetails.push('portrait 9:16 aspect ratio');
+            }
+
+            if (state.dalleStyle === 'vivid') {
+                dalleDetails.push('vivid aesthetic style');
+            } else if (state.dalleStyle === 'natural') {
+                dalleDetails.push('natural photography styling');
+            }
+
+            if (state.dalleQuality === 'hd') {
+                dalleDetails.push('highly detailed HD quality');
+            }
+
+            if (dalleDetails.length > 0) {
+                promptText += (promptText ? ', ' : '') + dalleDetails.join(', ');
+            }
         }
-
-        // Chaos parameter (append only if greater than 0)
-        if (parseInt(state.chaos) > 0) {
-            parameterParts.push(`--c ${state.chaos}`);
-        }
-
-        // Weird parameter (append only if greater than 0)
-        if (parseInt(state.weird) > 0) {
-            parameterParts.push(`--w ${state.weird}`);
-        }
-
-        // Raw Mode style tag
-        if (isRawActive) {
-            parameterParts.push('--style raw');
-        }
-
-        // Native HD rendering tag
-        if (isHdActive) {
-            parameterParts.push('--hd');
-        }
-
-        // Version parameter (always append version tag)
-        if (state.version) {
-            parameterParts.push(state.version);
-        }
-
-        // Combine base prompt text and engine parameters
-        if (parameterParts.length > 0) {
-            promptText += (promptText ? ' ' : '') + parameterParts.join(' ');
+        else if (state.engine === 'sd') {
+            // Stable Diffusion formatting (clean prompt tags, dimensions set on webui)
+            if (state.aspectRatio === '--ar 16:9') {
+                promptText += (promptText ? ', ' : '') + 'wide aspect';
+            } else if (state.aspectRatio === '--ar 9:16') {
+                promptText += (promptText ? ', ' : '') + 'portrait aspect';
+            }
         }
 
         compiledPromptText.textContent = promptText;
@@ -188,6 +229,132 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMultiSelectGroup(lightingChips, 'lighting');
     setupMultiSelectGroup(cameraChips, 'camera');
     setupMultiSelectGroup(colorChips, 'color');
+
+    // Engine Tabs switcher
+    const engineTabs = document.querySelectorAll('.engine-tab');
+    const enginePanels = document.querySelectorAll('.engine-panel');
+    const negativePromptWrapper = document.getElementById('negative-prompt-wrapper');
+
+    engineTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const selectedEngine = tab.getAttribute('data-engine');
+            state.engine = selectedEngine;
+
+            // Update tab UI
+            engineTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Update panels UI
+            enginePanels.forEach(panel => {
+                panel.classList.remove('active-panel');
+                panel.style.display = 'none';
+            });
+            const targetPanel = document.getElementById(`panel-${selectedEngine}`);
+            if (targetPanel) {
+                targetPanel.style.display = 'block';
+                // Force repaint
+                targetPanel.offsetHeight;
+                targetPanel.classList.add('active-panel');
+            }
+
+            // Toggle Negative Prompt Box display
+            if (selectedEngine === 'sd') {
+                negativePromptWrapper.style.display = 'block';
+            } else {
+                negativePromptWrapper.style.display = 'none';
+            }
+
+            compilePrompt();
+        });
+    });
+
+    // DALL-E 3 Parameters handlers
+    const dalleStyleChips = document.querySelectorAll('#dalle-style-group .chip');
+    const dalleQualityChips = document.querySelectorAll('#dalle-quality-group .chip');
+
+    dalleStyleChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            dalleStyleChips.forEach(c => {
+                c.classList.remove('active');
+                c.setAttribute('aria-pressed', 'false');
+            });
+            chip.classList.add('active');
+            chip.setAttribute('aria-pressed', 'true');
+            state.dalleStyle = chip.getAttribute('data-value');
+            compilePrompt();
+        });
+    });
+
+    dalleQualityChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            dalleQualityChips.forEach(c => {
+                c.classList.remove('active');
+                c.setAttribute('aria-pressed', 'false');
+            });
+            chip.classList.add('active');
+            chip.setAttribute('aria-pressed', 'true');
+            state.dalleQuality = chip.getAttribute('data-value');
+            compilePrompt();
+        });
+    });
+
+    // Stable Diffusion Guidance (CFG) Scale slider
+    const cfgSlider = document.getElementById('param-cfg');
+    const cfgValDisplay = document.getElementById('cfg-val');
+    if (cfgSlider) {
+        cfgSlider.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value).toFixed(1);
+            state.cfgScale = val;
+            cfgValDisplay.textContent = val + (val == 7.0 ? " (Default)" : "");
+            compilePrompt();
+        });
+    }
+
+    // Stable Diffusion Negative Tag presets
+    const sdNegativeChips = document.querySelectorAll('#sd-negative-presets .chip');
+    const compiledNegativeText = document.getElementById('compiled-negative-prompt');
+
+    sdNegativeChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const val = chip.getAttribute('data-value');
+            chip.classList.toggle('active');
+            const isActive = chip.classList.contains('active');
+            chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+
+            if (isActive) {
+                if (!state.negativeTags.includes(val)) {
+                    state.negativeTags.push(val);
+                }
+            } else {
+                state.negativeTags = state.negativeTags.filter(item => item !== val);
+            }
+            compileNegativePrompt();
+        });
+    });
+
+    function compileNegativePrompt() {
+        if (state.negativeTags.length === 0) {
+            compiledNegativeText.textContent = "blurry, low quality, deformed...";
+            compiledNegativeText.style.color = "var(--text-muted)";
+            return;
+        }
+        const negStr = state.negativeTags.join(', ');
+        compiledNegativeText.textContent = negStr;
+        compiledNegativeText.style.color = "var(--text-main)";
+    }
+
+    // Copy Negative Prompt Action
+    const btnCopyNegative = document.getElementById('btn-copy-negative');
+    if (btnCopyNegative) {
+        btnCopyNegative.addEventListener('click', () => {
+            const negText = compiledNegativeText.textContent;
+            if (negText !== "blurry, low quality, deformed...") {
+                copyTextToClipboard(negText);
+            } else {
+                alert('Select some negative presets first!');
+            }
+        });
+    }
 
     // Slider Listeners
     stylizeSlider.addEventListener('input', (e) => {
@@ -524,7 +691,12 @@ document.addEventListener('DOMContentLoaded', () => {
             stylize: 100,
             chaos: 0,
             weird: 0,
-            version: '--v 8.1'
+            version: '--v 8.1',
+            engine: 'midjourney',
+            dalleStyle: 'vivid',
+            dalleQuality: 'hd',
+            cfgScale: 7.0,
+            negativeTags: []
         };
 
         // Reset Textarea
@@ -570,6 +742,43 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset Version Radio
         document.getElementById('ver-8-1').checked = true;
 
+        // Reset Engine switch UI
+        engineTabs.forEach(t => t.classList.remove('active'));
+        document.querySelector('.engine-tab[data-engine="midjourney"]').classList.add('active');
+        enginePanels.forEach(panel => {
+            panel.classList.remove('active-panel');
+            panel.style.display = 'none';
+        });
+        document.getElementById('panel-midjourney').style.display = 'block';
+        document.getElementById('panel-midjourney').classList.add('active-panel');
+        negativePromptWrapper.style.display = 'none';
+
+        // Reset DALL-E and SD specific UI states
+        dalleStyleChips.forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-pressed', 'false');
+        });
+        document.querySelector('[data-type="dalle-style"][data-value="vivid"]').classList.add('active');
+        document.querySelector('[data-type="dalle-style"][data-value="vivid"]').setAttribute('aria-pressed', 'true');
+
+        dalleQualityChips.forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-pressed', 'false');
+        });
+        document.querySelector('[data-type="dalle-quality"][data-value="hd"]').classList.add('active');
+        document.querySelector('[data-type="dalle-quality"][data-value="hd"]').setAttribute('aria-pressed', 'true');
+
+        if (cfgSlider) {
+            cfgSlider.value = 7.0;
+            cfgValDisplay.textContent = '7.0 (Default)';
+        }
+
+        sdNegativeChips.forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-pressed', 'false');
+        });
+        compileNegativePrompt();
+
         compilePrompt();
     });
 
@@ -614,6 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
         state.chaos = 0;
         state.weird = 0;
         state.version = '--v 8.1';
+        state.negativeTags = [];
 
         stylizeSlider.value = 100;
         stylizeValDisplay.textContent = '100 (Default)';
@@ -622,6 +832,18 @@ document.addEventListener('DOMContentLoaded', () => {
         weirdSlider.value = 0;
         weirdValDisplay.textContent = '0 (Off)';
         document.getElementById('ver-8-1').checked = true;
+
+        // Reset DALL-E and SD UI element selections
+        if (cfgSlider) {
+            cfgSlider.value = 7.0;
+            cfgValDisplay.textContent = '7.0 (Default)';
+        }
+
+        sdNegativeChips.forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-pressed', 'false');
+        });
+        compileNegativePrompt();
 
         // Reset Render Mode chips
         const renderModeChips = [document.getElementById('mode-raw'), document.getElementById('mode-hd')];

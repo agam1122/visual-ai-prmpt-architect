@@ -223,68 +223,131 @@
 
                 <!-- Advanced Engine Parameters -->
                 <div class="selection-box" id="engine-parameters-group">
-                    <h2 class="box-title">Engine Parameters (Midjourney)</h2>
-                    <div class="sliders-container">
-                        <!-- Stylize Slider -->
-                        <div class="slider-group">
-                            <div class="slider-label-row">
-                                <label for="param-stylize" class="slider-label">Stylize (--s)</label>
-                                <span class="slider-val" id="stylize-val">100 (Default)</span>
-                            </div>
-                            <input type="range" id="param-stylize" min="0" max="1000" step="50" value="100" class="param-slider">
-                        </div>
+                    <div class="engine-tabs">
+                        <button type="button" class="engine-tab active" data-engine="midjourney">Midjourney</button>
+                        <button type="button" class="engine-tab" data-engine="dalle">DALL-E 3</button>
+                        <button type="button" class="engine-tab" data-engine="sd">Stable Diffusion</button>
+                    </div>
 
-                        <!-- Chaos Slider -->
-                        <div class="slider-group">
-                            <div class="slider-label-row">
-                                <label for="param-chaos" class="slider-label">Chaos (--c)</label>
-                                <span class="slider-val" id="chaos-val">0 (Low)</span>
+                    <!-- Panel: Midjourney -->
+                    <div id="panel-midjourney" class="engine-panel active-panel">
+                        <div class="sliders-container">
+                            <!-- Stylize Slider -->
+                            <div class="slider-group">
+                                <div class="slider-label-row">
+                                    <label for="param-stylize" class="slider-label">Stylize (--s)</label>
+                                    <span class="slider-val" id="stylize-val">100 (Default)</span>
+                                </div>
+                                <input type="range" id="param-stylize" min="0" max="1000" step="50" value="100" class="param-slider">
                             </div>
-                            <input type="range" id="param-chaos" min="0" max="100" step="5" value="0" class="param-slider">
-                        </div>
 
-                        <!-- Weird Slider -->
-                        <div class="slider-group">
-                            <div class="slider-label-row">
-                                <label for="param-weird" class="slider-label">Weird (--w)</label>
-                                <span class="slider-val" id="weird-val">0 (Off)</span>
+                            <!-- Chaos Slider -->
+                            <div class="slider-group">
+                                <div class="slider-label-row">
+                                    <label for="param-chaos" class="slider-label">Chaos (--c)</label>
+                                    <span class="slider-val" id="chaos-val">0 (Low)</span>
+                                </div>
+                                <input type="range" id="param-chaos" min="0" max="100" step="5" value="0" class="param-slider">
                             </div>
-                            <input type="range" id="param-weird" min="0" max="3000" step="100" value="0" class="param-slider">
-                        </div>
 
-                        <!-- Midjourney Version Selector -->
-                        <div class="slider-group">
-                            <span class="slider-label">Midjourney Version</span>
-                            <div class="version-radio-container" role="radiogroup" aria-label="Midjourney Version">
-                                <label class="ver-radio-lbl" for="ver-8-1">
-                                    <input type="radio" name="mj-version" id="ver-8-1" value="--v 8.1" checked>
-                                    <span>v8.1</span>
-                                </label>
-                                <label class="ver-radio-lbl" for="ver-8">
-                                    <input type="radio" name="mj-version" id="ver-8" value="--v 8.0">
-                                    <span>v8.0</span>
-                                </label>
-                                <label class="ver-radio-lbl" for="ver-7">
-                                    <input type="radio" name="mj-version" id="ver-7" value="--v 7.0">
-                                    <span>v7.0</span>
-                                </label>
-                                <label class="ver-radio-lbl" for="ver-niji-8">
-                                    <input type="radio" name="mj-version" id="ver-niji-8" value="--niji 8">
-                                    <span>Niji v8</span>
-                                </label>
-                                <label class="ver-radio-lbl" for="ver-6">
-                                    <input type="radio" name="mj-version" id="ver-6" value="--v 6.0">
-                                    <span>v6.0</span>
-                                </label>
+                            <!-- Weird Slider -->
+                            <div class="slider-group">
+                                <div class="slider-label-row">
+                                    <label for="param-weird" class="slider-label">Weird (--w)</label>
+                                    <span class="slider-val" id="weird-val">0 (Off)</span>
+                                </div>
+                                <input type="range" id="param-weird" min="0" max="3000" step="100" value="0" class="param-slider">
+                            </div>
+
+                            <!-- Midjourney Version Selector -->
+                            <div class="slider-group">
+                                <span class="slider-label">Midjourney Version</span>
+                                <div class="version-radio-container" role="radiogroup" aria-label="Midjourney Version">
+                                    <label class="ver-radio-lbl" for="ver-8-1">
+                                        <input type="radio" name="mj-version" id="ver-8-1" value="--v 8.1" checked>
+                                        <span>v8.1</span>
+                                    </label>
+                                    <label class="ver-radio-lbl" for="ver-8">
+                                        <input type="radio" name="mj-version" id="ver-8" value="--v 8.0">
+                                        <span>v8.0</span>
+                                    </label>
+                                    <label class="ver-radio-lbl" for="ver-7">
+                                        <input type="radio" name="mj-version" id="ver-7" value="--v 7.0">
+                                        <span>v7.0</span>
+                                    </label>
+                                    <label class="ver-radio-lbl" for="ver-niji-8">
+                                        <input type="radio" name="mj-version" id="ver-niji-8" value="--niji 8">
+                                        <span>Niji v8</span>
+                                    </label>
+                                    <label class="ver-radio-lbl" for="ver-6">
+                                        <input type="radio" name="mj-version" id="ver-6" value="--v 6.0">
+                                        <span>v6.0</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Midjourney Rendering Modes -->
+                            <div class="slider-group">
+                                <span class="slider-label">Render Modes</span>
+                                <div class="chips-container" role="group" aria-label="Midjourney Render Modes">
+                                    <button type="button" class="chip" id="mode-raw" data-value="--style raw" aria-pressed="false">Raw Mode</button>
+                                    <button type="button" class="chip" id="mode-hd" data-value="--hd" aria-pressed="false">HD Output</button>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Midjourney Rendering Modes -->
-                        <div class="slider-group">
-                            <span class="slider-label">Render Modes</span>
-                            <div class="chips-container" role="group" aria-label="Midjourney Render Modes">
-                                <button type="button" class="chip" id="mode-raw" data-value="--style raw" aria-pressed="false">Raw Mode</button>
-                                <button type="button" class="chip" id="mode-hd" data-value="--hd" aria-pressed="false">HD Output</button>
+                    <!-- Panel: DALL-E 3 -->
+                    <div id="panel-dalle" class="engine-panel">
+                        <div class="sliders-container">
+                            <!-- DALL-E Style -->
+                            <div class="slider-group">
+                                <span class="slider-label">Render Style (DALL-E 3)</span>
+                                <div class="chips-container" role="group" aria-label="DALL-E 3 Render Style" id="dalle-style-group">
+                                    <button type="button" class="chip active" data-type="dalle-style" data-value="vivid" aria-pressed="true">Vivid Style</button>
+                                    <button type="button" class="chip" data-type="dalle-style" data-value="natural" aria-pressed="false">Natural Style</button>
+                                </div>
+                                <p class="param-subtext" style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px; line-height: 1.4;">Vivid style creates colorful, high-contrast images. Natural style designs photorealistic or authentic artwork.</p>
+                            </div>
+
+                            <!-- DALL-E Quality -->
+                            <div class="slider-group">
+                                <span class="slider-label">DALL-E Quality Level</span>
+                                <div class="chips-container" role="group" aria-label="DALL-E 3 Quality Level" id="dalle-quality-group">
+                                    <button type="button" class="chip active" data-type="dalle-quality" data-value="hd" aria-pressed="true">HD Quality</button>
+                                    <button type="button" class="chip" data-type="dalle-quality" data-value="standard" aria-pressed="false">Standard</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel: Stable Diffusion -->
+                    <div id="panel-sd" class="engine-panel">
+                        <div class="sliders-container">
+                            <!-- CFG Guidance Slider -->
+                            <div class="slider-group">
+                                <div class="slider-label-row">
+                                    <label for="param-cfg" class="slider-label">CFG Scale (Prompt Strength)</label>
+                                    <span class="slider-val" id="cfg-val">7.0 (Default)</span>
+                                </div>
+                                <input type="range" id="param-cfg" min="1.0" max="20.0" step="0.5" value="7.0" class="param-slider">
+                            </div>
+
+                            <!-- Negative Prompt Quick-Tags -->
+                            <div class="slider-group">
+                                <span class="slider-label">Negative Prompt Presets (Click to Add)</span>
+                                <div class="chips-container" role="group" aria-label="Stable Diffusion Negative Presets" id="sd-negative-presets">
+                                    <button type="button" class="chip" data-value="blurry" aria-pressed="false">Blurry</button>
+                                    <button type="button" class="chip" data-value="low quality" aria-pressed="false">Low Quality</button>
+                                    <button type="button" class="chip" data-value="deformed" aria-pressed="false">Deformed</button>
+                                    <button type="button" class="chip" data-value="extra limbs" aria-pressed="false">Extra Limbs</button>
+                                    <button type="button" class="chip" data-value="bad anatomy" aria-pressed="false">Bad Anatomy</button>
+                                    <button type="button" class="chip" data-value="watermark" aria-pressed="false">Watermark</button>
+                                    <button type="button" class="chip" data-value="text" aria-pressed="false">Text/Logo</button>
+                                    <button type="button" class="chip" data-value="signature" aria-pressed="false">Signature</button>
+                                    <button type="button" class="chip" data-value="disfigured" aria-pressed="false">Disfigured</button>
+                                    <button type="button" class="chip" data-value="bad proportions" aria-pressed="false">Bad Proportions</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -308,6 +371,23 @@
                 <div class="counter-row">
                     <span class="counter-item">Characters: <strong id="char-count">0</strong> / 4000</span>
                     <span class="counter-item">Words: <strong id="word-count">0</strong></span>
+                </div>
+
+                <!-- Stable Diffusion Negative Prompt Output Area (Hidden by Default) -->
+                <div class="negative-prompt-wrapper" id="negative-prompt-wrapper" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 class="output-title" style="margin-bottom: 0;">Negative Prompt</h3>
+                        <button type="button" class="btn btn-secondary" id="btn-copy-negative" style="padding: 6px 12px; font-size: 12.5px; height: 32px; min-width: auto; width: auto; gap: 6px;">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                            <span>Copy Negative</span>
+                        </button>
+                    </div>
+                    <div class="compiled-prompt-box" id="compiled-negative-box" style="border-color: rgba(239, 68, 68, 0.15);">
+                        <p id="compiled-negative-prompt" class="compiled-prompt-text" style="color: var(--text-muted); font-size: 13.5px;">blurry, low quality, deformed...</p>
+                    </div>
                 </div>
 
                 <div class="action-buttons-row">
