@@ -442,39 +442,43 @@
                 </div>
             </div>
 
-            <!-- Live Interactive Prompt Gallery -->
-            <div class="gallery-card" id="inspiration-gallery">
-                <div class="gallery-header-row">
-                    <h3 class="gallery-title">Inspiration Gallery</h3>
-                    <div class="gallery-search-wrapper">
-                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                        <input type="text" id="gallery-search" placeholder="Search prompts..." aria-label="Search prompt gallery">
-                    </div>
-                </div>
-
-                <!-- Category Filter Chips -->
-                <div class="gallery-filters" role="tablist" aria-label="Filter gallery by category">
-                    <button type="button" class="filter-chip active" data-category="all" role="tab" aria-selected="true">All</button>
-                    <button type="button" class="filter-chip" data-category="photography" role="tab" aria-selected="false">Photography</button>
-                    <button type="button" class="filter-chip" data-category="anime" role="tab" aria-selected="false">Anime</button>
-                    <button type="button" class="filter-chip" data-category="fantasy" role="tab" aria-selected="false">Fantasy & Surreal</button>
-                    <button type="button" class="filter-chip" data-category="cyberpunk" role="tab" aria-selected="false">Cyberpunk & Sci-Fi</button>
-                    <button type="button" class="filter-chip" data-category="render" role="tab" aria-selected="false">3D Render & Assets</button>
-                </div>
-
-                <div class="gallery-grid" id="dynamic-gallery-grid">
-                    <!-- JavaScript will inject cards dynamically here -->
-                </div>
-
-                <div class="gallery-pagination-row" id="gallery-pagination-row">
-                    <button type="button" class="load-more-btn" id="gallery-load-more-btn">Load More Prompts</button>
-                </div>
-            </div>
         </section>
     </main>
+
+    <!-- Live Interactive Prompt Gallery Section -->
+    <section class="gallery-section-container" aria-labelledby="gallery-section-title">
+        <h2 class="sr-only" id="gallery-section-title">Prompt Inspiration Gallery</h2>
+        <div class="gallery-card" id="inspiration-gallery">
+            <div class="gallery-header-row">
+                <h3 class="gallery-title">Inspiration Gallery</h3>
+                <div class="gallery-search-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="gallery-search" placeholder="Search prompts..." aria-label="Search prompt gallery">
+                </div>
+            </div>
+
+            <!-- Category Filter Chips -->
+            <div class="gallery-filters" role="tablist" aria-label="Filter gallery by category">
+                <button type="button" class="filter-chip active" data-category="all" role="tab" aria-selected="true">All</button>
+                <button type="button" class="filter-chip" data-category="photography" role="tab" aria-selected="false">Photography</button>
+                <button type="button" class="filter-chip" data-category="anime" role="tab" aria-selected="false">Anime</button>
+                <button type="button" class="filter-chip" data-category="fantasy" role="tab" aria-selected="false">Fantasy & Surreal</button>
+                <button type="button" class="filter-chip" data-category="cyberpunk" role="tab" aria-selected="false">Cyberpunk & Sci-Fi</button>
+                <button type="button" class="filter-chip" data-category="render" role="tab" aria-selected="false">3D Render & Assets</button>
+            </div>
+
+            <div class="gallery-grid" id="dynamic-gallery-grid">
+                <!-- JavaScript will inject cards dynamically here -->
+            </div>
+
+            <div class="gallery-pagination-row" id="gallery-pagination-row">
+                <button type="button" class="load-more-btn" id="gallery-load-more-btn">Load More Prompts</button>
+            </div>
+        </div>
+    </section>
 
     <!-- Semantic SEO Rich Content Section -->
     <article class="seo-rich-content">
