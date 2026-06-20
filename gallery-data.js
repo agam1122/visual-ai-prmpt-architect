@@ -6,7 +6,7 @@ const GALLERY_DATA = [
     prompt: "A dramatic black and white street photograph of a man walking under an umbrella in London, heavy rain, mist, headlights reflecting on wet cobblestones, shot on 35mm film, high contrast --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "photography",
-    image: "images/gallery_photography.png"
+    image: "images/gallery_photography.webp"
   },
   {
     id: 2,
@@ -14,7 +14,7 @@ const GALLERY_DATA = [
     prompt: "Close-up macro shot of a single dewdrop on a vibrant green autumn leaf, morning sunlight filtering through the background forest creating beautiful circular bokeh, extremely detailed textures, f/2.8 macro lens",
     engine: "sd",
     category: "photography",
-    image: "images/gallery_macro.png"
+    image: "images/gallery_macro.webp"
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ const GALLERY_DATA = [
     prompt: "A professional editorial fashion portrait of a model wearing an avant-garde silver metallic puffer jacket, neon lighting, clean studio background, high fashion magazine style, cinematic color grading",
     engine: "dalle",
     category: "photography",
-    image: "images/gallery_fashion.png"
+    image: "images/gallery_fashion.webp"
   },
   {
     id: 4,
@@ -30,7 +30,7 @@ const GALLERY_DATA = [
     prompt: "A soulful close-up portrait of an elderly Tibetan woman, deep expressive wrinkles, colorful traditional attire, soft side window lighting, shallow depth of field, captured on 85mm portrait lens --ar 4:3 --v 6.0",
     engine: "midjourney",
     category: "photography",
-    image: "images/gallery_elder.png"
+    image: "images/gallery_elder.webp"
   },
   {
     id: 5,
@@ -38,7 +38,7 @@ const GALLERY_DATA = [
     prompt: "Long exposure landscape photography of a massive Icelandic waterfall, dark basalt columns, volcanic black sand, emerald green moss, dramatic dark stormy clouds, shot on 24mm wide angle lens",
     engine: "sd",
     category: "photography",
-    image: "images/gallery_waterfall.png"
+    image: "images/gallery_waterfall.webp"
   },
   {
     id: 6,
@@ -46,7 +46,7 @@ const GALLERY_DATA = [
     prompt: "Widescreen drone shot of rolling orange sand dunes in the Sahara desert at golden hour, long shadows stretching across the ridges, highly detailed sand ripples, national geographic style",
     engine: "dalle",
     category: "photography",
-    image: "images/gallery_desert.png"
+    image: "images/gallery_desert.webp"
   },
   {
     id: 7,
@@ -54,7 +54,7 @@ const GALLERY_DATA = [
     prompt: "Cinematic shot of a cozy coffee shop interior on a rainy morning, steam rising from a ceramic mug, warm incandescent lights, window with raindrops looking out to a blurred city street --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "photography",
-    image: "images/gallery_coffee.png"
+    image: "images/gallery_coffee.webp"
   },
   {
     id: 8,
@@ -62,7 +62,7 @@ const GALLERY_DATA = [
     prompt: "Analog film photo of a classic red convertible sports car driving along the Amalfi Coast, sunlit coastal cliffs, blue ocean background, vintage grain, kodachrome 64 style, 1970s aesthetic",
     engine: "sd",
     category: "photography",
-    image: "images/gallery_car.png"
+    image: "images/gallery_car.webp"
   },
   {
     id: 9,
@@ -70,7 +70,7 @@ const GALLERY_DATA = [
     prompt: "High-speed strobe photography capturing a single strawberry dropping into a glass of crystal-clear water, exploding droplets suspended in mid-air, dark clean studio backdrop, sharp macro details",
     engine: "dalle",
     category: "photography",
-    image: "images/gallery_macro.png"
+    image: "images/gallery_macro.webp"
   },
   {
     id: 10,
@@ -96,7 +96,7 @@ const GALLERY_DATA = [
     prompt: "A beautiful aesthetic digital anime painting of a girl reading a book in a library filled with glowing magical floating particles and ancient books, warm soft light, Makoto Shinkai vibe, high detail",
     engine: "sd",
     category: "anime",
-    image: "images/gallery_anime.png"
+    image: "images/gallery_anime.webp"
   },
   {
     id: 13,
@@ -104,7 +104,7 @@ const GALLERY_DATA = [
     prompt: "Anime style artwork of a young girl drinking a glowing soda inside a retro-futuristic cyberpunk neon diner, rain tapping on the window outside, highly detailed, lo-fi aesthetic",
     engine: "dalle",
     category: "anime",
-    image: "images/gallery_diner.png"
+    image: "images/gallery_diner.webp"
   },
   {
     id: 14,
@@ -120,7 +120,7 @@ const GALLERY_DATA = [
     prompt: "Hand-drawn cel anime key visual of a cool pilot inside a giant robot cockpit, glowing consoles, detailed controls, retro 1990s aesthetic, bold lines, neon accents, dramatic shadows",
     engine: "sd",
     category: "anime",
-    image: "images/gallery_mech.png"
+    image: "images/gallery_mech.webp"
   },
   {
     id: 16,
@@ -128,7 +128,7 @@ const GALLERY_DATA = [
     prompt: "Vibrant fantasy anime illustration of a railway track floating above a sea of fluffy white clouds, a train traveling towards a giant sunset sun, flying manta rays, epic scale, magical realism",
     engine: "dalle",
     category: "anime",
-    image: "images/gallery_fantasy.png"
+    image: "images/gallery_fantasy.webp"
   },
   {
     id: 17,
@@ -136,7 +136,7 @@ const GALLERY_DATA = [
     prompt: "Lo-fi anime style illustration of a cozy bedroom at night, a cat sleeping on the desk next to a glowing laptop, cup of tea, warm fairy lights, window showing city skyline --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "anime",
-    image: "images/gallery_anime.png"
+    image: "images/gallery_anime.webp"
   },
   {
     id: 18,
@@ -152,7 +152,7 @@ const GALLERY_DATA = [
     prompt: "An alchemist's messy desk full of bubbling colorful potions in glass vials, old open spellbooks, glowing crystal shards, scrolls, inkwells, cute magical fire sprite floating, fantasy anime style",
     engine: "dalle",
     category: "anime",
-    image: "images/gallery_anime.png"
+    image: "images/gallery_anime.webp"
   },
   {
     id: 20,
@@ -160,7 +160,7 @@ const GALLERY_DATA = [
     prompt: "Beautiful digital anime painting of a coral reef mermaid kingdom, bioluminescent plants, schools of glowing fish, underwater sunbeams, majestic coral architecture, mythical scale --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "anime",
-    image: "images/gallery_fantasy.png"
+    image: "images/gallery_fantasy.webp"
   },
 
   // FANTASY & SURREALISM (10 items)
@@ -170,7 +170,7 @@ const GALLERY_DATA = [
     prompt: "A magnificent fantasy world landscape with floating islands, waterfalls streaming down to a glowing azure lake, ancient castle perched on a peak, sunset rays, magical realism --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "fantasy",
-    image: "images/gallery_fantasy.png"
+    image: "images/gallery_fantasy.webp"
   },
   {
     id: 22,
@@ -186,7 +186,7 @@ const GALLERY_DATA = [
     prompt: "A giant hourglass standing on a desert floor, inside the hourglass is a miniature ocean with sailing ships, surreal Salvador Dali style, melting clocks in the background, dramatic lighting",
     engine: "dalle",
     category: "fantasy",
-    image: "images/gallery_fantasy.png"
+    image: "images/gallery_fantasy.webp"
   },
   {
     id: 24,
@@ -194,7 +194,7 @@ const GALLERY_DATA = [
     prompt: "A celestial oracle wizard draped in glowing starry robes, casting a spell showing a miniature galaxy spinning between his hands, mystical energy swirls, epic fantasy digital painting --ar 4:3 --v 6.0",
     engine: "midjourney",
     category: "fantasy",
-    image: "images/gallery_fantasy.png"
+    image: "images/gallery_fantasy.webp"
   },
   {
     id: 25,
@@ -210,7 +210,7 @@ const GALLERY_DATA = [
     prompt: "A majestic ancient dragon perched on the rim of a glowing volcano, molten lava rivers flowing down, dark ash clouds, fire sparks flying, epic detailed fantasy art, dramatic volcanic light",
     engine: "dalle",
     category: "fantasy",
-    image: "images/gallery_fantasy.png"
+    image: "images/gallery_fantasy.webp"
   },
   {
     id: 27,
@@ -218,7 +218,7 @@ const GALLERY_DATA = [
     prompt: "A colossal whale flying gracefully through the clouds at sunset, carrying a small town on its back, glowing lanterns hanging from its fins, fantasy illustration, dreamlike atmosphere --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "fantasy",
-    image: "images/gallery_fantasy.png"
+    image: "images/gallery_fantasy.webp"
   },
   {
     id: 28,
@@ -242,7 +242,7 @@ const GALLERY_DATA = [
     prompt: "A solitary stone gateway standing in the middle of a barren desert, the gateway acts as a portal revealing a lush tropical jungle inside its frame, surrealism painting style --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "fantasy",
-    image: "images/gallery_desert.png"
+    image: "images/gallery_desert.webp"
   },
 
   // CYBERPUNK & SCI-FI (10 items)
@@ -252,7 +252,7 @@ const GALLERY_DATA = [
     prompt: "A breathtaking cyberpunk street at night, neon signs glowing in purple and turquoise, rain reflections on the asphalt, highly detailed, photorealistic, cinematic lighting --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "cyberpunk",
-    image: "images/gallery_cyberpunk.png"
+    image: "images/gallery_cyberpunk.webp"
   },
   {
     id: 32,
@@ -268,7 +268,7 @@ const GALLERY_DATA = [
     prompt: "Interior view of a massive interstellar spaceship hangar, sleek high-tech starfighters parked on platforms, crew working, glowing energy columns, view of a distant planet through the window",
     engine: "dalle",
     category: "cyberpunk",
-    image: "images/gallery_space.png"
+    image: "images/gallery_space.webp"
   },
   {
     id: 34,
@@ -276,7 +276,7 @@ const GALLERY_DATA = [
     prompt: "A high-tech cybernetic human face, intricate circuit boards and wires running under transparent skin, glowing optical sensors, dark mechanical workshop setting, macro photograph --ar 1:1 --v 6.0",
     engine: "midjourney",
     category: "cyberpunk",
-    image: "images/gallery_geisha.png"
+    image: "images/gallery_geisha.webp"
   },
   {
     id: 35,
@@ -284,7 +284,7 @@ const GALLERY_DATA = [
     prompt: "A futuristic colony dome on Mars, red desert landscape, active terraforming machines, space rovers, dusty orange sky with two moons, retro-futuristic sci-fi illustration style",
     engine: "sd",
     category: "cyberpunk",
-    image: "images/gallery_space.png"
+    image: "images/gallery_space.webp"
   },
   {
     id: 36,
@@ -292,7 +292,7 @@ const GALLERY_DATA = [
     prompt: "A portrait of a futuristic cybernetic geisha with glowing fiber optic hair, metallic skin panels, neon makeup, traditional kimono with neon lights, dark Tokyo club background",
     engine: "dalle",
     category: "cyberpunk",
-    image: "images/gallery_geisha.png"
+    image: "images/gallery_geisha.webp"
   },
   {
     id: 37,
@@ -300,7 +300,7 @@ const GALLERY_DATA = [
     prompt: "A massive sci-fi orbital space station positioned next to a giant swirling purple and gold cosmic nebula, starfields, spaceships docking, epic cinematic lighting, highly detailed --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "cyberpunk",
-    image: "images/gallery_space.png"
+    image: "images/gallery_space.webp"
   },
   {
     id: 38,
@@ -308,7 +308,7 @@ const GALLERY_DATA = [
     prompt: "A large wooden steampunk airship with brass gears and copper pipes, flying through puffy clouds over a Victorian era city, sunlight gleaming off metal surfaces, cinematic retro art",
     engine: "sd",
     category: "cyberpunk",
-    image: "images/gallery_space.png"
+    image: "images/gallery_space.webp"
   },
   {
     id: 39,
@@ -316,7 +316,7 @@ const GALLERY_DATA = [
     prompt: "A crowded cyber-punk street market at night, merchants selling glowing noodle bowls, high-tech components, and synthetic pets, rain slicked streets, neon canopy lights",
     engine: "dalle",
     category: "cyberpunk",
-    image: "images/gallery_cyberpunk.png"
+    image: "images/gallery_cyberpunk.webp"
   },
   {
     id: 40,
@@ -324,7 +324,7 @@ const GALLERY_DATA = [
     prompt: "A giant rusted military combat mech standing abandoned in a mossy swamp, vines growing over its chassis, sunset rays filtering through trees, soft misty air, hyper-detailed --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "cyberpunk",
-    image: "images/gallery_mech.png"
+    image: "images/gallery_mech.webp"
   },
 
   // 3D RENDER & GAME ASSETS (10 items)
@@ -334,7 +334,7 @@ const GALLERY_DATA = [
     prompt: "A 3D render of a futuristic room with holographic computer screens, glowing light accents, clean octane rendering style, architectural digest, isometric view --ar 1:1 --v 6.0",
     engine: "midjourney",
     category: "render",
-    image: "images/gallery_render.png"
+    image: "images/gallery_render.webp"
   },
   {
     id: 42,
@@ -350,14 +350,14 @@ const GALLERY_DATA = [
     prompt: "An isometric 3D render of a floating fantasy island game level, containing a tiny castle, a winding river, small green pine trees, chest of gold, clean clay render style",
     engine: "dalle",
     category: "render",
-    image: "images/gallery_render.png"
+    image: "images/gallery_render.webp"
   },
   {
     id: 44,
     title: "Cute Alchemist Shop Asset",
     prompt: "A cute 3D isometric game asset of a magical potion workbench, bubbling flasks, glowing crystal stand, wooden desk, clay render, stylized cartoon style, colorful --ar 1:1 --v 6.0",
     engine: "render",
-    image: "images/gallery_render.png"
+    image: "images/gallery_render.webp"
   },
   {
     id: 45,
@@ -365,7 +365,7 @@ const GALLERY_DATA = [
     prompt: "A high-tech sci-fi plasma rifle, weapon game model, custom metallic details, glowing blue energy cells, clean white background studio render, professional asset presentation",
     engine: "sd",
     category: "render",
-    image: "images/gallery_render.png"
+    image: "images/gallery_render.webp"
   },
   {
     id: 46,
@@ -373,7 +373,7 @@ const GALLERY_DATA = [
     prompt: "A beautiful 3D render of a miniature magical world inside a glass terrarium sphere, containing a glowing cherry blossom tree, tiny cottage, waterfall, octane render, soft light",
     engine: "dalle",
     category: "render",
-    image: "images/gallery_render.png"
+    image: "images/gallery_render.webp"
   },
   {
     id: 47,
@@ -381,7 +381,7 @@ const GALLERY_DATA = [
     prompt: "A stylized 3D render of a retro vaporwave computer room, CRT monitors glowing, pastel pink and purple grid lighting, palm tree outline, low-poly aesthetics --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "render",
-    image: "images/gallery_render.png"
+    image: "images/gallery_render.webp"
   },
   {
     id: 48,
@@ -389,7 +389,7 @@ const GALLERY_DATA = [
     prompt: "A futuristic electric supercar model made of transparent glass and chrome metal, reflecting neon club lights in a dark showroom, highly polished 3D render, raytracing",
     engine: "sd",
     category: "render",
-    image: "images/gallery_car.png"
+    image: "images/gallery_car.webp"
   },
   {
     id: 49,
@@ -397,7 +397,7 @@ const GALLERY_DATA = [
     prompt: "A stylized 3D render of a medieval blacksmith forge, containing an anvil, a glowing hot iron sword in coals, weapon racks, low-poly game asset style, warm firelight",
     engine: "dalle",
     category: "render",
-    image: "images/gallery_render.png"
+    image: "images/gallery_render.webp"
   },
   {
     id: 50,
@@ -405,6 +405,6 @@ const GALLERY_DATA = [
     prompt: "A cute 3D render of a tiny round cleaning robot, big expressive glowing screen eyes, glossy white plastic shell, standing on a clean wooden desk, stylized cartoon render --ar 1:1 --v 6.0",
     engine: "midjourney",
     category: "render",
-    image: "images/gallery_render.png"
+    image: "images/gallery_render.webp"
   }
 ];
