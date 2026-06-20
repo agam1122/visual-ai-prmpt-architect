@@ -2,8 +2,8 @@ const GALLERY_DATA = [
   // PHOTOGRAPHY CATEGORY (10 items)
   {
     id: 1,
-    title: "London Rain Portrait",
-    prompt: "A dramatic black and white street photograph of a man walking under an umbrella in London, heavy rain, mist, headlights reflecting on wet cobblestones, shot on 35mm film, high contrast --ar 16:9 --v 6.0",
+    title: "Moody Boat Portrait",
+    prompt: "A cinematic black and white portrait of a man standing on a wooden boat at sea, morning mist rising from the dark water, dramatic side lighting, high contrast photography, shot on 35mm film --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "photography",
     image: "images/gallery_photography.webp"
