@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Action Buttons
     const btnCopy = document.getElementById('btn-copy-prompt');
     const btnSave = document.getElementById('btn-save');
+    const btnShareLink = document.getElementById('btn-share-link');
     const btnRandomize = document.getElementById('btn-randomize');
     const btnClear = document.getElementById('btn-clear');
     const copyTooltip = document.getElementById('copy-success-tooltip');
@@ -477,14 +478,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------------------
 
     // Clipboard Copy Action
-    function copyTextToClipboard(text) {
+    function copyTextToClipboard(text, successMsg = "Prompt copied to clipboard!") {
         navigator.clipboard.writeText(text).then(() => {
+            copyTooltip.textContent = successMsg;
             copyTooltip.classList.remove('hidden');
             setTimeout(() => {
                 copyTooltip.classList.add('hidden');
             }, 2000);
         }).catch(err => {
-            console.error('Failed to copy prompt: ', err);
+            console.error('Failed to copy text: ', err);
             // Fallback for older browsers and iOS Safari security restrictions
             const textarea = document.createElement('textarea');
             textarea.value = text;
@@ -495,12 +497,13 @@ document.addEventListener('DOMContentLoaded', () => {
             textarea.setSelectionRange(0, 99999); // Mobile Safari safety selection range
             try {
                 document.execCommand('copy');
+                copyTooltip.textContent = successMsg;
                 copyTooltip.classList.remove('hidden');
                 setTimeout(() => {
                     copyTooltip.classList.add('hidden');
                 }, 2000);
             } catch (fallbackErr) {
-                alert('Could not copy prompt, please copy manually.');
+                alert('Could not copy text, please copy manually.');
             }
             document.body.removeChild(textarea);
         });
@@ -510,6 +513,155 @@ document.addEventListener('DOMContentLoaded', () => {
         const textToCopy = compiledPromptText.textContent;
         copyTextToClipboard(textToCopy);
     });
+
+    if (btnShareLink) {
+        btnShareLink.addEventListener('click', () => {
+            const url = new URL(window.location.origin + window.location.pathname);
+            
+            // Set base prompt
+            if (state.basePrompt.trim()) {
+                url.searchParams.set('prompt', state.basePrompt.trim());
+            }
+            
+            // Set engine
+            if (state.engine) {
+                url.searchParams.set('engine', state.engine);
+            }
+            
+            // Set aspect ratio
+            if (state.aspectRatio) {
+                url.searchParams.set('ar', state.aspectRatio);
+            }
+            
+            // Set styles (standard IDs vs custom values)
+            const activeStyleIds = [];
+            const activeCustomStyles = [];
+            document.querySelectorAll('#artistic-style-group .chip').forEach(chip => {
+                if (chip.classList.contains('active')) {
+                    if (chip.id && !chip.id.startsWith('custom-')) {
+                        activeStyleIds.push(chip.id);
+                    } else {
+                        const val = chip.getAttribute('data-value');
+                        if (val) activeCustomStyles.push(val);
+                    }
+                }
+            });
+            if (activeStyleIds.length > 0) {
+                url.searchParams.set('styles', activeStyleIds.join(','));
+            }
+            if (activeCustomStyles.length > 0) {
+                url.searchParams.set('cust_styles', activeCustomStyles.join('|'));
+            }
+
+            // Set lighting
+            const activeLightIds = [];
+            const activeCustomLighting = [];
+            document.querySelectorAll('#lighting-group .chip').forEach(chip => {
+                if (chip.classList.contains('active')) {
+                    if (chip.id && !chip.id.startsWith('custom-')) {
+                        activeLightIds.push(chip.id);
+                    } else {
+                        const val = chip.getAttribute('data-value');
+                        if (val) activeCustomLighting.push(val);
+                    }
+                }
+            });
+            if (activeLightIds.length > 0) {
+                url.searchParams.set('lighting', activeLightIds.join(','));
+            }
+            if (activeCustomLighting.length > 0) {
+                url.searchParams.set('cust_lighting', activeCustomLighting.join('|'));
+            }
+
+            // Set camera
+            const activeCamIds = [];
+            const activeCustomCamera = [];
+            document.querySelectorAll('#camera-lens-group .chip').forEach(chip => {
+                if (chip.classList.contains('active')) {
+                    if (chip.id && !chip.id.startsWith('custom-')) {
+                        activeCamIds.push(chip.id);
+                    } else {
+                        const val = chip.getAttribute('data-value');
+                        if (val) activeCustomCamera.push(val);
+                    }
+                }
+            });
+            if (activeCamIds.length > 0) {
+                url.searchParams.set('camera', activeCamIds.join(','));
+            }
+            if (activeCustomCamera.length > 0) {
+                url.searchParams.set('cust_camera', activeCustomCamera.join('|'));
+            }
+
+            // Set color
+            const activeColorIds = [];
+            const activeCustomColor = [];
+            document.querySelectorAll('#color-palette-group .chip').forEach(chip => {
+                if (chip.classList.contains('active')) {
+                    if (chip.id && !chip.id.startsWith('custom-')) {
+                        activeColorIds.push(chip.id);
+                    } else {
+                        const val = chip.getAttribute('data-value');
+                        if (val) activeCustomColor.push(val);
+                    }
+                }
+            });
+            if (activeColorIds.length > 0) {
+                url.searchParams.set('color', activeColorIds.join(','));
+            }
+            if (activeCustomColor.length > 0) {
+                url.searchParams.set('cust_color', activeCustomColor.join('|'));
+            }
+
+            // Midjourney parameters
+            if (state.engine === 'midjourney') {
+                if (parseInt(state.stylize) !== 100) {
+                    url.searchParams.set('s', state.stylize);
+                }
+                if (parseInt(state.chaos) > 0) {
+                    url.searchParams.set('c', state.chaos);
+                }
+                if (parseInt(state.weird) > 0) {
+                    url.searchParams.set('w', state.weird);
+                }
+                const btnRaw = document.getElementById('mode-raw');
+                const btnHd = document.getElementById('mode-hd');
+                if (btnRaw && btnRaw.classList.contains('active')) {
+                    url.searchParams.set('raw', '1');
+                }
+                if (btnHd && btnHd.classList.contains('active')) {
+                    url.searchParams.set('hd', '1');
+                }
+                if (state.version) {
+                    url.searchParams.set('v', state.version);
+                }
+            } else if (state.engine === 'dalle') {
+                if (state.dalleStyle) {
+                    url.searchParams.set('ds', state.dalleStyle);
+                }
+                if (state.dalleQuality) {
+                    url.searchParams.set('dq', state.dalleQuality);
+                }
+            } else if (state.engine === 'sd') {
+                if (state.cfgScale && parseFloat(state.cfgScale) !== 7.0) {
+                    url.searchParams.set('cfg', state.cfgScale);
+                }
+                // Save SD active negative tags
+                const activeNegValues = [];
+                document.querySelectorAll('#sd-negative-presets .chip').forEach(chip => {
+                    if (chip.classList.contains('active')) {
+                        const val = chip.getAttribute('data-value');
+                        if (val) activeNegValues.push(val);
+                    }
+                });
+                if (activeNegValues.length > 0) {
+                    url.searchParams.set('neg', activeNegValues.join(','));
+                }
+            }
+
+            copyTextToClipboard(url.toString(), "Share link copied to clipboard!");
+        });
+    }
 
     // Gallery Copy Actions (Static version removed, handled dynamically by gallery logic below)
 
@@ -880,6 +1032,443 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    function addCustomChipProgrammatically(containerId, stateKey, value) {
+        const container = document.querySelector(`#${containerId} .chips-container`);
+        if (!container) return;
+
+        // Check if a chip with this value already exists
+        const existing = container.querySelector(`[data-value="${value}"]`);
+        if (existing) {
+            existing.classList.add('active');
+            existing.setAttribute('aria-pressed', 'true');
+            if (!state[stateKey].includes(value)) {
+                state[stateKey].push(value);
+            }
+            return;
+        }
+
+        const chipId = `custom-${stateKey}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+        
+        const newChip = document.createElement('button');
+        newChip.type = 'button';
+        newChip.className = 'chip active';
+        newChip.id = chipId;
+        newChip.setAttribute('data-type', stateKey);
+        newChip.setAttribute('data-value', value);
+        newChip.setAttribute('aria-pressed', 'true');
+        newChip.textContent = value;
+        
+        container.appendChild(newChip);
+        if (!state[stateKey].includes(value)) {
+            state[stateKey].push(value);
+        }
+        
+        newChip.addEventListener('click', () => {
+            newChip.classList.toggle('active');
+            const isActive = newChip.classList.contains('active');
+            newChip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            
+            if (isActive) {
+                if (!state[stateKey].includes(value)) {
+                    state[stateKey].push(value);
+                }
+            } else {
+                state[stateKey] = state[stateKey].filter(item => item !== value);
+            }
+            compilePrompt();
+        });
+    }
+
+    function loadFromUrlParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('prompt') && window.location.search.length <= 1) {
+            return; // No parameters to load
+        }
+
+        const hasDetailedParams = urlParams.has('engine') || urlParams.has('styles') || urlParams.has('lighting') || urlParams.has('camera') || urlParams.has('color') || urlParams.has('ar');
+
+        if (hasDetailedParams) {
+            // Detailed loading mode (reconstructs state exactly from searchParams)
+            const promptVal = urlParams.get('prompt') || '';
+            state.basePrompt = promptVal;
+            basePromptInput.value = promptVal;
+
+            const engineVal = urlParams.get('engine');
+            if (engineVal && ['midjourney', 'dalle', 'sd'].includes(engineVal)) {
+                state.engine = engineVal;
+                // Update UI engine tab
+                engineTabs.forEach(t => {
+                    if (t.getAttribute('data-engine') === engineVal) {
+                        t.classList.add('active');
+                    } else {
+                        t.classList.remove('active');
+                    }
+                });
+                // Update panels
+                enginePanels.forEach(panel => {
+                    panel.classList.remove('active-panel');
+                    panel.style.display = 'none';
+                });
+                const targetPanel = document.getElementById(`panel-${engineVal}`);
+                if (targetPanel) {
+                    targetPanel.style.display = 'block';
+                    targetPanel.classList.add('active-panel');
+                }
+                // Toggle Negative Prompt Box display
+                if (engineVal === 'sd') {
+                    negativePromptWrapper.style.display = 'block';
+                } else {
+                    negativePromptWrapper.style.display = 'none';
+                }
+            }
+
+            const arVal = urlParams.get('ar');
+            if (arVal) {
+                state.aspectRatio = arVal;
+                arChips.forEach(chip => {
+                    if (chip.getAttribute('data-value') === arVal) {
+                        chip.classList.add('active');
+                        chip.setAttribute('aria-checked', 'true');
+                    } else {
+                        chip.classList.remove('active');
+                        chip.setAttribute('aria-checked', 'false');
+                    }
+                });
+            }
+
+            // Clear defaults in state first
+            state.styles = [];
+            state.lighting = [];
+            state.camera = [];
+            state.color = [];
+
+            // Deactivate all standard chips first to start with a clean state
+            document.querySelectorAll('#artistic-style-group .chip, #lighting-group .chip, #camera-lens-group .chip, #color-palette-group .chip').forEach(c => {
+                c.classList.remove('active');
+                c.setAttribute('aria-pressed', 'false');
+            });
+
+            // Activate standard chips by ID
+            const activateChipsById = (paramName, stateKey) => {
+                const ids = urlParams.get(paramName);
+                if (ids) {
+                    ids.split(',').forEach(id => {
+                        const chip = document.getElementById(id.trim());
+                        if (chip) {
+                            chip.classList.add('active');
+                            chip.setAttribute('aria-pressed', 'true');
+                            const val = chip.getAttribute('data-value');
+                            if (val && !state[stateKey].includes(val)) {
+                                state[stateKey].push(val);
+                            }
+                        }
+                    });
+                }
+            };
+
+            activateChipsById('styles', 'styles');
+            activateChipsById('lighting', 'lighting');
+            activateChipsById('camera', 'camera');
+            activateChipsById('color', 'color');
+
+            // Restore custom chips by value
+            const restoreCustomChips = (paramName, containerId, stateKey) => {
+                const custVals = urlParams.get(paramName);
+                if (custVals) {
+                    custVals.split('|').forEach(val => {
+                        if (val.trim()) {
+                            addCustomChipProgrammatically(containerId, stateKey, val.trim());
+                        }
+                    });
+                }
+            };
+
+            restoreCustomChips('cust_styles', 'artistic-style-group', 'styles');
+            restoreCustomChips('cust_lighting', 'lighting-group', 'lighting');
+            restoreCustomChips('cust_camera', 'camera-lens-group', 'camera');
+            restoreCustomChips('cust_color', 'color-palette-group', 'color');
+
+            // Restore engine specific sliders and states
+            if (state.engine === 'midjourney') {
+                const sVal = urlParams.get('s');
+                if (sVal !== null) {
+                    state.stylize = parseInt(sVal);
+                    if (stylizeSlider) {
+                        stylizeSlider.value = state.stylize;
+                        stylizeValDisplay.textContent = state.stylize + (state.stylize == 100 ? " (Default)" : "");
+                    }
+                }
+                const cVal = urlParams.get('c');
+                if (cVal !== null) {
+                    state.chaos = parseInt(cVal);
+                    if (chaosSlider) {
+                        chaosSlider.value = state.chaos;
+                        chaosValDisplay.textContent = state.chaos + (state.chaos == 0 ? " (Default)" : "");
+                    }
+                }
+                const wVal = urlParams.get('w');
+                if (wVal !== null) {
+                    state.weird = parseInt(wVal);
+                    if (weirdSlider) {
+                        weirdSlider.value = state.weird;
+                        weirdValDisplay.textContent = state.weird + (state.weird == 0 ? " (Default)" : "");
+                    }
+                }
+                const rawVal = urlParams.get('raw');
+                const btnRaw = document.getElementById('mode-raw');
+                if (rawVal === '1' && btnRaw) {
+                    btnRaw.classList.add('active');
+                    btnRaw.setAttribute('aria-pressed', 'true');
+                } else if (btnRaw) {
+                    btnRaw.classList.remove('active');
+                    btnRaw.setAttribute('aria-pressed', 'false');
+                }
+                const hdVal = urlParams.get('hd');
+                const btnHd = document.getElementById('mode-hd');
+                if (hdVal === '1' && btnHd) {
+                    btnHd.classList.add('active');
+                    btnHd.setAttribute('aria-pressed', 'true');
+                } else if (btnHd) {
+                    btnHd.classList.remove('active');
+                    btnHd.setAttribute('aria-pressed', 'false');
+                }
+                const vVal = urlParams.get('v');
+                if (vVal) {
+                    state.version = vVal;
+                    versionRadios.forEach(radio => {
+                        if (radio.value === vVal) {
+                            radio.checked = true;
+                        }
+                    });
+                }
+            } else if (state.engine === 'dalle') {
+                const dsVal = urlParams.get('ds');
+                if (dsVal) {
+                    state.dalleStyle = dsVal;
+                    dalleStyleChips.forEach(c => {
+                        if (c.getAttribute('data-value') === dsVal) {
+                            c.classList.add('active');
+                            c.setAttribute('aria-pressed', 'true');
+                        } else {
+                            c.classList.remove('active');
+                            c.setAttribute('aria-pressed', 'false');
+                        }
+                    });
+                }
+                const dqVal = urlParams.get('dq');
+                if (dqVal) {
+                    state.dalleQuality = dqVal;
+                    dalleQualityChips.forEach(c => {
+                        if (c.getAttribute('data-value') === dqVal) {
+                            c.classList.add('active');
+                            c.setAttribute('aria-pressed', 'true');
+                        } else {
+                            c.classList.remove('active');
+                            c.setAttribute('aria-pressed', 'false');
+                        }
+                    });
+                }
+            } else if (state.engine === 'sd') {
+                const cfgVal = urlParams.get('cfg');
+                if (cfgVal !== null) {
+                    state.cfgScale = parseFloat(cfgVal);
+                    if (cfgSlider) {
+                        cfgSlider.value = state.cfgScale;
+                        cfgValDisplay.textContent = state.cfgScale + (state.cfgScale == 7.0 ? " (Default)" : "");
+                    }
+                }
+                const negVal = urlParams.get('neg');
+                if (negVal) {
+                    state.negativeTags = [];
+                    // Deactivate all SD negative preset chips first
+                    document.querySelectorAll('#sd-negative-presets .chip').forEach(c => c.classList.remove('active'));
+                    negVal.split(',').forEach(v => {
+                        const val = v.trim();
+                        const chip = document.querySelector(`#sd-negative-presets .chip[data-value="${val}"]`);
+                        if (chip) {
+                            chip.classList.add('active');
+                            state.negativeTags.push(val);
+                        }
+                    });
+                    if (compiledNegativeText) {
+                        compiledNegativeText.textContent = state.negativeTags.join(', ') || 'blurry, low quality, deformed...';
+                    }
+                }
+            }
+        } else {
+            // Smart Parsing Mode (handles simple query strings e.g. prompt=A+futuristic+cyberpunk+cat+--ar+16:9)
+            let promptText = urlParams.get('prompt') || '';
+            
+            // 1. Detect aspect ratios (Midjourney flags)
+            const arMatches = promptText.match(/--ar\s+(\d+:\d+)/i);
+            if (arMatches) {
+                const arString = `--ar ${arMatches[1]}`;
+                state.aspectRatio = arString;
+                arChips.forEach(chip => {
+                    if (chip.getAttribute('data-value') === arString) {
+                        chip.classList.add('active');
+                        chip.setAttribute('aria-checked', 'true');
+                    } else {
+                        chip.classList.remove('active');
+                        chip.setAttribute('aria-checked', 'false');
+                    }
+                });
+                promptText = promptText.replace(/--ar\s+\d+:\d+/gi, '');
+                state.engine = 'midjourney';
+            } else {
+                // Check if DALL-E or SD aspect ratio keywords are in the prompt
+                if (promptText.toLowerCase().includes('widescreen 16:9 aspect ratio') || promptText.toLowerCase().includes('wide aspect')) {
+                    state.aspectRatio = '--ar 16:9';
+                    const targetChip = document.getElementById('ar-16-9');
+                    if (targetChip) {
+                        arChips.forEach(c => c.classList.remove('active'));
+                        targetChip.classList.add('active');
+                        targetChip.setAttribute('aria-checked', 'true');
+                    }
+                } else if (promptText.toLowerCase().includes('portrait 9:16 aspect ratio') || promptText.toLowerCase().includes('portrait aspect')) {
+                    state.aspectRatio = '--ar 9:16';
+                    const targetChip = document.getElementById('ar-9-16');
+                    if (targetChip) {
+                        arChips.forEach(c => c.classList.remove('active'));
+                        targetChip.classList.add('active');
+                        targetChip.setAttribute('aria-checked', 'true');
+                    }
+                }
+            }
+
+            // 2. Detect Midjourney Version
+            const versionMatch = promptText.match(/--v\s+([0-9.]+)/i);
+            if (versionMatch) {
+                const vString = `--v ${versionMatch[1]}`;
+                state.version = vString;
+                versionRadios.forEach(radio => {
+                    if (radio.value === vString) {
+                        radio.checked = true;
+                    }
+                });
+                promptText = promptText.replace(/--v\s+[0-9.]+/gi, '');
+                state.engine = 'midjourney';
+            }
+
+            // 3. Detect Style Raw & HD
+            if (promptText.toLowerCase().includes('--style raw')) {
+                const btnRaw = document.getElementById('mode-raw');
+                if (btnRaw) {
+                    btnRaw.classList.add('active');
+                    btnRaw.setAttribute('aria-pressed', 'true');
+                }
+                promptText = promptText.replace(/--style raw/gi, '');
+                state.engine = 'midjourney';
+            }
+            if (promptText.toLowerCase().includes('--hd')) {
+                const btnHd = document.getElementById('mode-hd');
+                if (btnHd) {
+                    btnHd.classList.add('active');
+                    btnHd.setAttribute('aria-pressed', 'true');
+                }
+                promptText = promptText.replace(/--hd/gi, '');
+                state.engine = 'midjourney';
+            }
+
+            // 4. Detect Midjourney Sliders
+            const sMatch = promptText.match(/--s\s+(\d+)/i);
+            if (sMatch) {
+                state.stylize = parseInt(sMatch[1]);
+                if (stylizeSlider) {
+                    stylizeSlider.value = state.stylize;
+                    stylizeValDisplay.textContent = state.stylize + (state.stylize == 100 ? " (Default)" : "");
+                }
+                promptText = promptText.replace(/--s\s+\d+/gi, '');
+            }
+            const cMatch = promptText.match(/--c\s+(\d+)/i);
+            if (cMatch) {
+                state.chaos = parseInt(cMatch[1]);
+                if (chaosSlider) {
+                    chaosSlider.value = state.chaos;
+                    chaosValDisplay.textContent = state.chaos + (state.chaos == 0 ? " (Default)" : "");
+                }
+                promptText = promptText.replace(/--c\s+\d+/gi, '');
+            }
+            const wMatch = promptText.match(/--w\s+(\d+)/i);
+            if (wMatch) {
+                state.weird = parseInt(wMatch[1]);
+                if (weirdSlider) {
+                    weirdSlider.value = state.weird;
+                    weirdValDisplay.textContent = state.weird + (state.weird == 0 ? " (Default)" : "");
+                }
+                promptText = promptText.replace(/--w\s+\d+/gi, '');
+            }
+
+            // 5. Scan and activate standard visual chips by data-value
+            state.styles = [];
+            state.lighting = [];
+            state.camera = [];
+            state.color = [];
+
+            // Deactivate all standard chips first to start with a clean state
+            document.querySelectorAll('#artistic-style-group .chip, #lighting-group .chip, #camera-lens-group .chip, #color-palette-group .chip').forEach(c => {
+                c.classList.remove('active');
+                c.setAttribute('aria-pressed', 'false');
+            });
+
+            const scanGroupChips = (chips, stateKey) => {
+                chips.forEach(chip => {
+                    const val = chip.getAttribute('data-value');
+                    if (val && promptText.toLowerCase().includes(val.toLowerCase())) {
+                        chip.classList.add('active');
+                        chip.setAttribute('aria-pressed', 'true');
+                        if (!state[stateKey].includes(val)) {
+                            state[stateKey].push(val);
+                        }
+                        const escapedVal = val.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                        const regex = new RegExp('(,\\s*)?' + escapedVal + '(\\s*,)?', 'gi');
+                        promptText = promptText.replace(regex, '');
+                    }
+                });
+            };
+
+            scanGroupChips(styleChips, 'styles');
+            scanGroupChips(lightingChips, 'lighting');
+            scanGroupChips(cameraChips, 'camera');
+            scanGroupChips(colorChips, 'color');
+
+            // 6. Clean up residual commas/spaces from prompt text
+            promptText = promptText.replace(/,\s*,/g, ',').trim();
+            promptText = promptText.replace(/^,\s*/, '').replace(/,\s*$/, '').trim();
+
+            state.basePrompt = promptText;
+            basePromptInput.value = promptText;
+
+            if (state.engine !== 'midjourney') {
+                if (promptText.toLowerCase().includes('vivid') || promptText.toLowerCase().includes('natural')) {
+                    state.engine = 'dalle';
+                }
+            }
+
+            engineTabs.forEach(t => {
+                if (t.getAttribute('data-engine') === state.engine) {
+                    t.classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+            enginePanels.forEach(panel => {
+                panel.classList.remove('active-panel');
+                panel.style.display = 'none';
+            });
+            const targetPanel = document.getElementById(`panel-${state.engine}`);
+            if (targetPanel) {
+                targetPanel.style.display = 'block';
+                targetPanel.classList.add('active-panel');
+            }
+            if (state.engine === 'sd') {
+                negativePromptWrapper.style.display = 'block';
+            } else {
+                negativePromptWrapper.style.display = 'none';
+            }
+        }
+    }
+
     // Automatically set the engine based on current page pathname
     function detectPageEngine() {
         const path = window.location.pathname.toLowerCase();
@@ -1112,6 +1701,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial load: fetch items from localStorage database and build prompt preview
     detectPageEngine();
     loadSavedPrompts();
+    loadFromUrlParams();
     compilePrompt();
     renderGallery();
 });
