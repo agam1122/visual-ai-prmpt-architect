@@ -50,9 +50,9 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Visual AI Prompt Architect",
-      "url": "https://promptarchitects.online",
-      "description": "An interactive, visual prompt engineering tool and generator for Midjourney, Stable Diffusion, and DALL-E 3 art creation.",
+      "name": "Stable Diffusion Prompt Builder & Negative Prompt Generator - Visual AI Prompt Architect",
+      "url": "https://promptarchitects.online/stable-diffusion-prompt-builder.html",
+      "description": "An interactive Stable Diffusion positive and negative prompt generator with style presets and guidance parameters.",
       "applicationCategory": "DesignApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires JavaScript. Requires HTML5.",
@@ -72,26 +72,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is an AI prompt generator?",
+          "name": "What is a Stable Diffusion prompt builder?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "An AI prompt generator is an interactive web tool that helps artists and creators easily construct descriptive prompt strings for text-to-image neural network generators (like Midjourney, DALL-E, and Stable Diffusion) without having to memorize technical parameter syntax."
+            "text": "A Stable Diffusion prompt builder is an interactive tool that helps artists compile descriptive prompt strings, choose guidance scales (CFG Scale), and select negative prompt presets to improve rendering quality."
           }
         },
         {
           "@type": "Question",
-          "name": "What parameters can I set for Midjourney?",
+          "name": "What is a negative prompt in Stable Diffusion?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The Visual AI Prompt Architect allows you to visually set core parameters like Aspect Ratio (--ar), Stylize (--s), Chaos (--c), Weird (--w), and select the underlying engine version (like Version 6 or Niji 6) using simple interactive sliders and selectors."
+            "text": "A negative prompt specifies elements that you do NOT want to appear in your generated image. By selecting tags like 'blurry', 'deformed', or 'bad anatomy', you can instruct the diffusion model to avoid these visual flaws."
           }
         },
         {
           "@type": "Question",
-          "name": "How do I save my prompt creations?",
+          "name": "How do I adjust the CFG scale?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "You can save your prompt configurations locally on your device using the Save button. This persists your drafts in your browser's local storage database so they remain available for copy-pasting whenever you return to the site."
+            "text": "The CFG (Classifier Free Guidance) scale determines how closely Stable Diffusion adheres to your text prompt. A value of 7-9 is standard, while higher values force strict adherence but may introduce color distortion."
           }
         }
       ]
