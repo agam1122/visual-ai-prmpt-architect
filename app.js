@@ -896,7 +896,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Automatically set the engine based on current page pathname
+    function detectPageEngine() {
+        const path = window.location.pathname.toLowerCase();
+        let targetEngine = 'midjourney'; // default fallback
+
+        if (path.includes('stable-diffusion')) {
+            targetEngine = 'sd';
+        } else if (path.includes('dalle') || path.includes('dall-e')) {
+            targetEngine = 'dalle';
+        } else if (path.includes('midjourney')) {
+            targetEngine = 'midjourney';
+        } else {
+            return; // on general index.html, leave default
+        }
+
+        state.engine = targetEngine;
+
+        // Update tab UI
+        engineTabs.forEach(t => {
+            if (t.getAttribute('data-engine') === targetEngine) {
+                t.classList.add('active');
+            } else {
+                t.classList.remove('active');
+            }
+        });
+
+        // Update panels UI
+        enginePanels.forEach(panel => {
+            panel.classList.remove('active-panel');
+            panel.style.display = 'none';
+        });
+        const targetPanel = document.getElementById(`panel-${targetEngine}`);
+        if (targetPanel) {
+            targetPanel.style.display = 'block';
+            targetPanel.classList.add('active-panel');
+        }
+
+        // Toggle Negative Prompt Box display
+        if (targetEngine === 'sd') {
+            negativePromptWrapper.style.display = 'block';
+        } else {
+            negativePromptWrapper.style.display = 'none';
+        }
+    }
+
     // Initial load: fetch items from localStorage database and build prompt preview
+    detectPageEngine();
     loadSavedPrompts();
     compilePrompt();
 });

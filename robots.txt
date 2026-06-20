@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ai-prompt-architect.com/sitemap.xml
+Sitemap: https://promptarchitects.online/sitemap.xml
