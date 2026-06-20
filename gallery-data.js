@@ -66,8 +66,8 @@ const GALLERY_DATA = [
   },
   {
     id: 9,
-    title: "High-Speed Water Splash",
-    prompt: "High-speed strobe photography capturing a single strawberry dropping into a glass of crystal-clear water, exploding droplets suspended in mid-air, dark clean studio backdrop, sharp macro details",
+    title: "Raindrop Leaf Macro",
+    prompt: "A highly detailed macro photograph of a fresh green leaf covered in tiny translucent water droplets after rain, soft morning light illuminating the veins of the leaf, green natural background, gorgeous bokeh",
     engine: "dalle",
     category: "photography",
     image: "images/gallery_macro.webp"
@@ -108,8 +108,8 @@ const GALLERY_DATA = [
   },
   {
     id: 14,
-    title: "Spirited Forest Spirit",
-    prompt: "Studio Ghibli style watercolor illustration of a giant friendly forest spirit standing next to a little child under a mossy oak tree, soft sunlight filtering through leaves, nostalgic hand-drawn feel --ar 4:3 --v 6.0",
+    title: "Anime Portal Tree",
+    prompt: "Beautiful digital anime watercolor painting of a giant magical tree acting as a celestial portal, glowing ancient roots, floating spores, dreamlike watercolor textures, Ghibli style, soft atmospheric light",
     engine: "midjourney",
     category: "anime",
     image: "images/showcase_fantasy.webp"
@@ -124,40 +124,40 @@ const GALLERY_DATA = [
   },
   {
     id: 16,
-    title: "Floating Sky Train",
-    prompt: "Vibrant fantasy anime illustration of a railway track floating above a sea of fluffy white clouds, a train traveling towards a giant sunset sun, flying manta rays, epic scale, magical realism",
+    title: "Floating Sky Palace",
+    prompt: "Vibrant fantasy anime illustration of a majestic white palace built on a floating mountain island, water cascades streaming down into clouds, birds flying around the peaks, epic scale, magical realism",
     engine: "dalle",
     category: "anime",
     image: "images/gallery_fantasy.webp"
   },
   {
     id: 17,
-    title: "Cozy Lo-Fi Study Room",
-    prompt: "Lo-fi anime style illustration of a cozy bedroom at night, a cat sleeping on the desk next to a glowing laptop, cup of tea, warm fairy lights, window showing city skyline --ar 16:9 --v 6.0",
+    title: "Cozy Lo-Fi Library Room",
+    prompt: "Lo-fi anime style illustration of a magical library room, books floating in mid-air, a sleepy cat napping on a desk next to a glowing crystal orb, warm candlelight, quiet and cozy aesthetic --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "anime",
     image: "images/gallery_anime.webp"
   },
   {
     id: 18,
-    title: "Kyoto Autumn Temple",
-    prompt: "Kyoto temple in autumn, red maple leaves framing the view, a traditional wooden bridge, quiet pond reflecting the golden pagoda, soft wind blowing, detailed anime background art",
+    title: "Tokyo Starry Rooftop",
+    prompt: "A beautiful digital anime illustration of a lone girl gazing at a giant crescent moon from a Tokyo rooftop at night, glowing starfield, aesthetic skyline, cherry blossom petals, Makoto Shinkai style",
     engine: "sd",
     category: "anime",
     image: "images/showcase_anime.webp"
   },
   {
     id: 19,
-    title: "Magical Alchemist Desk",
-    prompt: "An alchemist's messy desk full of bubbling colorful potions in glass vials, old open spellbooks, glowing crystal shards, scrolls, inkwells, cute magical fire sprite floating, fantasy anime style",
+    title: "Alchemist Library Desk",
+    prompt: "An alchemist's workspace desk inside a grand magical library, scrolls, open old spellbooks, glowing crystal shards, watercolor anime style, soft light filtering through high library windows",
     engine: "dalle",
     category: "anime",
     image: "images/gallery_anime.webp"
   },
   {
     id: 20,
-    title: "Undersea Coral Kingdom",
-    prompt: "Beautiful digital anime painting of a coral reef mermaid kingdom, bioluminescent plants, schools of glowing fish, underwater sunbeams, majestic coral architecture, mythical scale --ar 16:9 --v 6.0",
+    title: "Bioluminescent Sky Palace",
+    prompt: "Beautiful digital anime painting of a floating castle island at dusk, glowing bioluminescent waterfalls, magical sky beams, majestic towers, mythical fantasy scale --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "anime",
     image: "images/gallery_fantasy.webp"
@@ -182,64 +182,64 @@ const GALLERY_DATA = [
   },
   {
     id: 23,
-    title: "Surreal Hourglass Ocean",
-    prompt: "A giant hourglass standing on a desert floor, inside the hourglass is a miniature ocean with sailing ships, surreal Salvador Dali style, melting clocks in the background, dramatic lighting",
+    title: "Surreal Floating Arches",
+    prompt: "A surreal landscape of floating castle towers connected by ancient stone arches, giant water streams falling upwards into a starry purple sky, dreamlike style, high detail octane render",
     engine: "dalle",
     category: "fantasy",
     image: "images/gallery_fantasy.webp"
   },
   {
     id: 24,
-    title: "Celestial Oracle Mage",
-    prompt: "A celestial oracle wizard draped in glowing starry robes, casting a spell showing a miniature galaxy spinning between his hands, mystical energy swirls, epic fantasy digital painting --ar 4:3 --v 6.0",
+    title: "Celestial Floating Temple",
+    prompt: "A celestial floating temple under a starry sky, glowing constellation pathways, waterfalls cascading into the dark galaxy below, epic digital painting, detailed architecture --ar 4:3 --v 6.0",
     engine: "midjourney",
     category: "fantasy",
     image: "images/gallery_fantasy.webp"
   },
   {
     id: 25,
-    title: "Lost City of Gold",
-    prompt: "An explorer discovering a massive golden temple city hidden inside a colossal cavern, glowing crystals on the cavern ceiling looking like stars, subterranean river, cinematic lighting",
+    title: "Cosmic Root Gateway",
+    prompt: "A cosmic portal framed by glowing ancient tree roots, a stone path leading into a bright galaxy visible inside the portal frame, magical fantasy concept art, high detail",
     engine: "sd",
     category: "fantasy",
     image: "images/showcase_fantasy.webp"
   },
   {
     id: 26,
-    title: "Dragon of the Volcano",
-    prompt: "A majestic ancient dragon perched on the rim of a glowing volcano, molten lava rivers flowing down, dark ash clouds, fire sparks flying, epic detailed fantasy art, dramatic volcanic light",
+    title: "Castle and White Dragon",
+    prompt: "A majestic white dragon soaring around a floating island castle, waterfalls cascading down into misty clouds, epic fantasy style, dramatic golden sunset light",
     engine: "dalle",
     category: "fantasy",
     image: "images/gallery_fantasy.webp"
   },
   {
     id: 27,
-    title: "Surreal Cloud Whale",
-    prompt: "A colossal whale flying gracefully through the clouds at sunset, carrying a small town on its back, glowing lanterns hanging from its fins, fantasy illustration, dreamlike atmosphere --ar 16:9 --v 6.0",
+    title: "Colossal Cloud Island",
+    prompt: "A colossal floating island carrying a majestic white castle, waterfalls streaming down from the peaks into fluffy white clouds below, dreamlike fantasy illustration --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "fantasy",
     image: "images/gallery_fantasy.webp"
   },
   {
     id: 28,
-    title: "Mystical Druid Grove",
-    prompt: "A mystical druid grove surrounded by glowing mushrooms and ancient stone runes, a magical white stag glowing with soft light standing in the center, dark fantasy oil painting style",
+    title: "Forest Stone Portal",
+    prompt: "A glowing stone portal gate inside a mystical forest, light beams shining through ancient tree roots, floating bioluminescent spores, magical fantasy style",
     engine: "sd",
     category: "fantasy",
     image: "images/showcase_fantasy.webp"
   },
   {
     id: 29,
-    title: "Elven Crystal Palace",
-    prompt: "A majestic elven palace constructed from white marble and giant glowing crystals, waterfalls flowing into calm reflecting pools, towering forest backdrop, sunrise rays, fantasy architecture",
+    title: "Galaxy Tree Gateway",
+    prompt: "A giant mystical tree forming a round portal gateway, showing a vibrant spinning galaxy on the other side, magical sparkles, epic detailed fantasy digital painting",
     engine: "dalle",
     category: "fantasy",
     image: "images/showcase_fantasy.webp"
   },
   {
     id: 30,
-    title: "Desert Ruins Portal",
-    prompt: "A solitary stone gateway standing in the middle of a barren desert, the gateway acts as a portal revealing a lush tropical jungle inside its frame, surrealism painting style --ar 16:9 --v 6.0",
+    title: "Desert Ruins Gateway",
+    prompt: "A solitary stone archway in a vast desert, golden hour light casting long shadows across the sand ripples, dreamlike surrealism style --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "fantasy",
     image: "images/gallery_desert.webp"
@@ -256,7 +256,7 @@ const GALLERY_DATA = [
   },
   {
     id: 32,
-    title: "Cyberpunk Blade Runner City",
+    title: "Cyberpunk Skyscraper City",
     prompt: "Colossal futuristic skyscraper city in the year 2099, holographic ads floating between buildings, flying spinner cars, dark foggy atmosphere, orange and blue neon palette",
     engine: "sd",
     category: "cyberpunk",
@@ -272,16 +272,16 @@ const GALLERY_DATA = [
   },
   {
     id: 34,
-    title: "Borg-Style Cybernetic Head",
-    prompt: "A high-tech cybernetic human face, intricate circuit boards and wires running under transparent skin, glowing optical sensors, dark mechanical workshop setting, macro photograph --ar 1:1 --v 6.0",
+    title: "Cyber Geisha Portrait",
+    prompt: "A high-tech portrait of a cybernetic geisha with glowing fiber optic hair, metallic skin faceplates, optical sensors, dark mechanical cyberpunk workshop setting --ar 1:1 --v 6.0",
     engine: "midjourney",
     category: "cyberpunk",
     image: "images/gallery_geisha.webp"
   },
   {
     id: 35,
-    title: "Desert Space Colony",
-    prompt: "A futuristic colony dome on Mars, red desert landscape, active terraforming machines, space rovers, dusty orange sky with two moons, retro-futuristic sci-fi illustration style",
+    title: "Starship Hangar Cargo",
+    prompt: "A futuristic starship cargo vessel inside a massive planetary base hangar bay, industrial sci-fi style, bright floodlights, heavy machinery, orange light accents",
     engine: "sd",
     category: "cyberpunk",
     image: "images/gallery_space.webp"
@@ -296,16 +296,16 @@ const GALLERY_DATA = [
   },
   {
     id: 37,
-    title: "Deep Space Nebula Station",
-    prompt: "A massive sci-fi orbital space station positioned next to a giant swirling purple and gold cosmic nebula, starfields, spaceships docking, epic cinematic lighting, highly detailed --ar 16:9 --v 6.0",
+    title: "Orbital Hangar Bay",
+    prompt: "A massive sci-fi spaceship hangar inside an orbital station, spaceships entering through glowing forcefield doors, nebula background visible outside --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "cyberpunk",
     image: "images/gallery_space.webp"
   },
   {
     id: 38,
-    title: "Retro Steampunk Airship",
-    prompt: "A large wooden steampunk airship with brass gears and copper pipes, flying through puffy clouds over a Victorian era city, sunlight gleaming off metal surfaces, cinematic retro art",
+    title: "Steampunk Hangar Station",
+    prompt: "A retro-futuristic steampunk hangar bay, brass gears, steam pipes, mechanical flyer crafts parked, warm gas lamp lighting, vintage industrial atmosphere",
     engine: "sd",
     category: "cyberpunk",
     image: "images/gallery_space.webp"
@@ -338,73 +338,79 @@ const GALLERY_DATA = [
   },
   {
     id: 42,
-    title: "Cozy Autumn Glass Cabin",
-    prompt: "A minimalist 3D architectural render of a cozy modern glass cabin in a forest during autumn, warm lights inside, falling yellow leaves, rainy mood, highly detailed octane render",
+    title: "Cozy Log Cabin Render",
+    prompt: "A beautiful 3D architectural render of a cozy log cabin in snow, glowing windows, giant green aurora borealis in the night sky, octane style render, scenic landscape",
     engine: "sd",
     category: "render",
     image: "images/showcase_architecture.webp"
   },
   {
     id: 43,
-    title: "Isometric Fantasy Island",
-    prompt: "An isometric 3D render of a floating fantasy island game level, containing a tiny castle, a winding river, small green pine trees, chest of gold, clean clay render style",
+    title: "Isometric Cyber Station",
+    prompt: "A 3D isometric render of a futuristic cyberpunk workstation, multiple glowing holographic screens, sleek modern chair, pastel purple lighting, clean Blender model style",
     engine: "dalle",
     category: "render",
     image: "images/gallery_render.webp"
   },
   {
     id: 44,
-    title: "Cute Alchemist Shop Asset",
-    prompt: "A cute 3D isometric game asset of a magical potion workbench, bubbling flasks, glowing crystal stand, wooden desk, clay render, stylized cartoon style, colorful --ar 1:1 --v 6.0",
-    engine: "render",
+    title: "Command Console Render",
+    prompt: "A cute 3D render of a futuristic tech command console room, glowing computer control stations, low-poly tech asset style, clay render, stylized cartoon style, colorful --ar 1:1 --v 6.0",
+    engine: "midjourney",
+    category: "render",
     image: "images/gallery_render.webp"
   },
   {
     id: 45,
-    title: "Sci-Fi Weapon Asset",
-    prompt: "A high-tech sci-fi plasma rifle, weapon game model, custom metallic details, glowing blue energy cells, clean white background studio render, professional asset presentation",
+    title: "Terminal Interface Model",
+    prompt: "A sleek sci-fi computer terminal render, glowing blue interface, holographic keyboard, isometric 3D asset presentation, clean white studio background octane render",
     engine: "sd",
     category: "render",
     image: "images/gallery_render.webp"
   },
   {
     id: 46,
-    title: "Miniature Bonsai Glass Orb",
-    prompt: "A beautiful 3D render of a miniature magical world inside a glass terrarium sphere, containing a glowing cherry blossom tree, tiny cottage, waterfall, octane render, soft light",
+    title: "Holographic Cyber Deck",
+    prompt: "A 3D render of a futuristic cyber-deck workstation, circular holographic display, low-poly tech room octane style, neon blue highlights, clean render model",
     engine: "dalle",
     category: "render",
     image: "images/gallery_render.webp"
   },
   {
     id: 47,
-    title: "Vaporwave Tech Room",
-    prompt: "A stylized 3D render of a retro vaporwave computer room, CRT monitors glowing, pastel pink and purple grid lighting, palm tree outline, low-poly aesthetics --ar 16:9 --v 6.0",
+    title: "Neon Server Room Render",
+    prompt: "A stylized 3D render of a futuristic server room, neon grid lines, glowing cooling pipes, pink and cyan vaporwave aesthetic, clean octane rendering --ar 16:9 --v 6.0",
     engine: "midjourney",
     category: "render",
     image: "images/gallery_render.webp"
   },
   {
     id: 48,
-    title: "Futuristic Glass Car",
-    prompt: "A futuristic electric supercar model made of transparent glass and chrome metal, reflecting neon club lights in a dark showroom, highly polished 3D render, raytracing",
+    title: "Vintage Red Car Render",
+    prompt: "A highly polished 3D render of a vintage red sports car parked on a scenic coastal road, high-fidelity car asset, sunset reflections, glossy paint, octane style render",
     engine: "sd",
     category: "render",
     image: "images/gallery_car.webp"
   },
   {
     id: 49,
-    title: "Medieval Weapon Display",
-    prompt: "A stylized 3D render of a medieval blacksmith forge, containing an anvil, a glowing hot iron sword in coals, weapon racks, low-poly game asset style, warm firelight",
+    title: "Hologram Weapon Rack",
+    prompt: "A 3D render of a futuristic weapon display console, glowing hologram rifle model, low-poly tech asset render style, clean studio background render",
     engine: "dalle",
     category: "render",
     image: "images/gallery_render.webp"
   },
   {
     id: 50,
-    title: "Cute Toy Robot",
-    prompt: "A cute 3D render of a tiny round cleaning robot, big expressive glowing screen eyes, glossy white plastic shell, standing on a clean wooden desk, stylized cartoon render --ar 1:1 --v 6.0",
+    title: "Stylized Robot Console",
+    prompt: "A stylized 3D render of a futuristic robot console, round metallic body, glowing circular eye screen, pastel octane render, clean product model --ar 1:1 --v 6.0",
     engine: "midjourney",
     category: "render",
     image: "images/gallery_render.webp"
   }
 ];
+
+// Browser Compatibility Export
+if (typeof window !== 'undefined') {
+  window.GALLERY_DATA = GALLERY_DATA;
+}
