@@ -511,23 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
         copyTextToClipboard(textToCopy);
     });
 
-    // Gallery Copy Actions
-    const galleryCopyBtns = document.querySelectorAll('.gallery-copy-btn');
-    galleryCopyBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent parent hover actions
-            const prompt = btn.getAttribute('data-prompt');
-            copyTextToClipboard(prompt);
-            
-            const originalText = btn.textContent;
-            btn.textContent = 'Copied!';
-            btn.style.backgroundColor = 'var(--success)';
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.backgroundColor = 'var(--primary)';
-            }, 1500);
-        });
-    });
+    // Gallery Copy Actions (Static version removed, handled dynamically by gallery logic below)
 
     // ----------------------------------------------------------------
     // LocalStorage Saved Prompts Management
@@ -941,8 +925,193 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ==========================================
+    // PROMPT GALLERY INTERACTIVE LOGIC
+    // ==========================================
+    const galleryGrid = document.getElementById('dynamic-gallery-grid');
+    const gallerySearchInput = document.getElementById('gallery-search');
+    const galleryFilterChips = document.querySelectorAll('.filter-chip');
+    const galleryLoadMoreBtn = document.getElementById('gallery-load-more-btn');
+    const galleryPaginationRow = document.getElementById('gallery-pagination-row');
+
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let visibleItemsCount = 12; // Load 12 items initially
+
+    function getFilteredPrompts() {
+        if (typeof GALLERY_DATA === 'undefined') return [];
+        return GALLERY_DATA.filter(item => {
+            const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+            const matchesSearch = item.title.toLowerCase().includes(searchQuery) || 
+                                  item.prompt.toLowerCase().includes(searchQuery);
+            return matchesCategory && matchesSearch;
+        });
+    }
+
+    function renderGallery() {
+        if (!galleryGrid) return;
+        
+        const filtered = getFilteredPrompts();
+        const itemsToDisplay = filtered.slice(0, visibleItemsCount);
+        
+        galleryGrid.innerHTML = '';
+        
+        if (itemsToDisplay.length === 0) {
+            galleryGrid.innerHTML = `
+                <div class="gallery-empty-state">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        <line x1="8" y1="11" x2="14" y2="11"></line>
+                    </svg>
+                    <p>No prompts found matching your criteria. Try adjusting your search or filters.</p>
+                </div>
+            `;
+            if (galleryPaginationRow) galleryPaginationRow.style.display = 'none';
+            return;
+        }
+
+        itemsToDisplay.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'gallery-item';
+            
+            card.innerHTML = `
+                <img src="${item.image}" alt="${item.title} prompt example" loading="lazy" class="gallery-img">
+                <div class="gallery-overlay">
+                    <div class="gallery-item-engine">${item.engine === 'sd' ? 'Stable Diffusion' : item.engine === 'dalle' ? 'DALL-E 3' : 'Midjourney'}</div>
+                    <div class="gallery-item-title">${item.title}</div>
+                    <p class="gallery-prompt-text">"${item.prompt}"</p>
+                    <div class="gallery-item-actions">
+                        <button type="button" class="gallery-copy-btn" data-prompt="${item.prompt.replace(/"/g, '&quot;')}" aria-label="Copy prompt">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            Copy
+                        </button>
+                        <button type="button" class="gallery-edit-btn" data-prompt="${item.prompt.replace(/"/g, '&quot;')}" data-engine="${item.engine}" aria-label="Load in builder">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path></svg>
+                            Edit
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            galleryGrid.appendChild(card);
+        });
+
+        // Toggle "Load More" button visibility
+        if (galleryPaginationRow) {
+            if (filtered.length > visibleItemsCount) {
+                galleryPaginationRow.style.display = 'flex';
+            } else {
+                galleryPaginationRow.style.display = 'none';
+            }
+        }
+
+        // Attach event handlers for actions inside overlay
+        attachGalleryActions();
+    }
+
+    function attachGalleryActions() {
+        // Copy button handlers
+        const copyBtns = galleryGrid.querySelectorAll('.gallery-copy-btn');
+        copyBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const text = btn.getAttribute('data-prompt');
+                copyTextToClipboard(text);
+            });
+        });
+
+        // Edit/Load in builder handlers
+        const editBtns = galleryGrid.querySelectorAll('.gallery-edit-btn');
+        editBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const text = btn.getAttribute('data-prompt');
+                const engine = btn.getAttribute('data-engine');
+                
+                // 1. Set text inside base prompt
+                const basePrompt = document.getElementById('base-prompt');
+                if (basePrompt) {
+                    basePrompt.value = text;
+                    basePrompt.dispatchEvent(new Event('input'));
+                }
+                
+                // 2. Select appropriate engine tab if it differs from current
+                if (engine) {
+                    let targetEngine = engine;
+                    const tabBtn = document.querySelector(`.engine-tab[data-engine="${targetEngine}"]`);
+                    if (tabBtn) {
+                        tabBtn.click();
+                    }
+                }
+                
+                // 3. Visual scroll up to builder workspace
+                const workspace = document.querySelector('.workspace-container');
+                if (workspace) {
+                    workspace.scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                // 4. Trigger Toast/Notice
+                showSuccessNotice('Prompt loaded into workspace!');
+            });
+        });
+    }
+
+    function showSuccessNotice(msg) {
+        if (copyTooltip) {
+            const originalText = copyTooltip.textContent;
+            const originalBg = copyTooltip.style.backgroundColor;
+            
+            copyTooltip.textContent = msg;
+            copyTooltip.style.backgroundColor = 'var(--primary)';
+            copyTooltip.classList.remove('hidden');
+            
+            setTimeout(() => {
+                copyTooltip.classList.add('hidden');
+                setTimeout(() => {
+                    copyTooltip.textContent = originalText;
+                    copyTooltip.style.backgroundColor = originalBg;
+                }, 200);
+            }, 2000);
+        }
+    }
+
+    // Search input handler
+    if (gallerySearchInput) {
+        gallerySearchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            visibleItemsCount = 12; // Reset pagination offset on new search queries
+            renderGallery();
+        });
+    }
+
+    // Filter chip selectors
+    galleryFilterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            galleryFilterChips.forEach(c => {
+                c.classList.remove('active');
+                c.setAttribute('aria-selected', 'false');
+            });
+            chip.classList.add('active');
+            chip.setAttribute('aria-selected', 'true');
+            
+            currentCategory = chip.getAttribute('data-category');
+            visibleItemsCount = 12; // Reset pagination offset on category changes
+            renderGallery();
+        });
+    });
+
+    // Load more pagination button
+    if (galleryLoadMoreBtn) {
+        galleryLoadMoreBtn.addEventListener('click', () => {
+            visibleItemsCount += 12; // load next 12 items
+            renderGallery();
+        });
+    }
+
     // Initial load: fetch items from localStorage database and build prompt preview
     detectPageEngine();
     loadSavedPrompts();
     compilePrompt();
+    renderGallery();
 });

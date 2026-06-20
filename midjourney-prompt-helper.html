@@ -442,38 +442,35 @@
                 </div>
             </div>
 
-            <!-- Live Showcase Gallery -->
-            <div class="gallery-card">
-                <h3 class="gallery-title">Inspiration Showcase</h3>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="images/showcase_cyberpunk.webp" alt="Cyberpunk street in rain generated prompt example" loading="lazy" class="gallery-img">
-                        <div class="gallery-overlay">
-                            <p class="gallery-prompt-text">"A breathtaking cyberpunk street at night, neon signs glowing in purple and turquoise, rain reflections on the asphalt, highly detailed, photorealistic, cinematic lighting --ar 16:9 --v 8.1"</p>
-                            <button type="button" class="gallery-copy-btn" data-prompt="A breathtaking cyberpunk street at night, neon signs glowing in purple and turquoise, rain reflections on the asphalt, highly detailed, photorealistic, cinematic lighting --ar 16:9 --v 8.1" aria-label="Copy cyberpunk prompt">Copy</button>
-                        </div>
+            <!-- Live Interactive Prompt Gallery -->
+            <div class="gallery-card" id="inspiration-gallery">
+                <div class="gallery-header-row">
+                    <h3 class="gallery-title">Inspiration Gallery</h3>
+                    <div class="gallery-search-wrapper">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="gallery-search" placeholder="Search prompts..." aria-label="Search prompt gallery">
                     </div>
-                    <div class="gallery-item">
-                        <img src="images/showcase_architecture.webp" alt="Modern villa in pine forest generated prompt example" loading="lazy" class="gallery-img">
-                        <div class="gallery-overlay">
-                            <p class="gallery-prompt-text">"A minimalist, ultra-modern luxury glass villa in the middle of a dense pine forest at sunrise, mist rising from the ground, warm morning sunbeams filtering through the trees, highly detailed, photorealistic, architectural digest style, cinematic lighting --ar 16:9 --v 8.1"</p>
-                            <button type="button" class="gallery-copy-btn" data-prompt="A minimalist, ultra-modern luxury glass villa in the middle of a dense pine forest at sunrise, mist rising from the ground, warm morning sunbeams filtering through the trees, highly detailed, photorealistic, architectural digest style, cinematic lighting --ar 16:9 --v 8.1" aria-label="Copy architecture prompt">Copy</button>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/showcase_fantasy.webp" alt="Floating castle in sky generated prompt example" loading="lazy" class="gallery-img">
-                        <div class="gallery-overlay">
-                            <p class="gallery-prompt-text">"A high-fantasy landscape featuring an ancient temple with waterfalls cascading down from a floating island in the sky, mystical glowing runes on the stones, lush greenery, birds flying in the sunset, magical realism style, epic lighting, cinematic --ar 16:9 --v 8.1"</p>
-                            <button type="button" class="gallery-copy-btn" data-prompt="A high-fantasy landscape featuring an ancient temple with waterfalls cascading down from a floating island in the sky, mystical glowing runes on the stones, lush greenery, birds flying in the sunset, magical realism style, epic lighting, cinematic --ar 16:9 --v 8.1" aria-label="Copy fantasy prompt">Copy</button>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/showcase_anime.webp" alt="Anime girl on Tokyo rooftop generated prompt example" loading="lazy" class="gallery-img">
-                        <div class="gallery-overlay">
-                            <p class="gallery-prompt-text">"A stunning digital anime illustration of a girl sitting on a rooftop in Tokyo, holding a glowing magical orb, soft pastel colors, cherry blossom petals flying in the wind, starry night sky with a giant crescent moon, detailed anime background, aesthetic, Makoto Shinkai style, cinematic --ar 16:9 --v 8.1"</p>
-                            <button type="button" class="gallery-copy-btn" data-prompt="A stunning digital anime illustration of a girl sitting on a rooftop in Tokyo, holding a glowing magical orb, soft pastel colors, cherry blossom petals flying in the wind, starry night sky with a giant crescent moon, detailed anime background, aesthetic, Makoto Shinkai style, cinematic --ar 16:9 --v 8.1" aria-label="Copy anime prompt">Copy</button>
-                        </div>
-                    </div>
+                </div>
+
+                <!-- Category Filter Chips -->
+                <div class="gallery-filters" role="tablist" aria-label="Filter gallery by category">
+                    <button type="button" class="filter-chip active" data-category="all" role="tab" aria-selected="true">All</button>
+                    <button type="button" class="filter-chip" data-category="photography" role="tab" aria-selected="false">Photography</button>
+                    <button type="button" class="filter-chip" data-category="anime" role="tab" aria-selected="false">Anime</button>
+                    <button type="button" class="filter-chip" data-category="fantasy" role="tab" aria-selected="false">Fantasy & Surreal</button>
+                    <button type="button" class="filter-chip" data-category="cyberpunk" role="tab" aria-selected="false">Cyberpunk & Sci-Fi</button>
+                    <button type="button" class="filter-chip" data-category="render" role="tab" aria-selected="false">3D Render & Assets</button>
+                </div>
+
+                <div class="gallery-grid" id="dynamic-gallery-grid">
+                    <!-- JavaScript will inject cards dynamically here -->
+                </div>
+
+                <div class="gallery-pagination-row" id="gallery-pagination-row">
+                    <button type="button" class="load-more-btn" id="gallery-load-more-btn">Load More Prompts</button>
                 </div>
             </div>
         </section>
@@ -592,6 +589,7 @@
     </footer>
 
     <!-- App JavaScript -->
+    <script src="gallery-data.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
