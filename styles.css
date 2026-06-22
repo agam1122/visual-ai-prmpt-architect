@@ -715,7 +715,7 @@ body {
     gap: 8px;
 }
 
-.gallery-copy-btn, .gallery-edit-btn {
+.gallery-copy-btn, .gallery-edit-btn, .gallery-view-btn {
     flex: 1;
     background-color: var(--primary);
     color: var(--text-main);
@@ -730,9 +730,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 4px;
+    text-decoration: none;
 }
 
-.gallery-edit-btn {
+.gallery-edit-btn, .gallery-view-btn {
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.15);
 }
@@ -741,9 +742,10 @@ body {
     background-color: var(--primary-hover);
 }
 
-.gallery-edit-btn:hover {
+.gallery-edit-btn:hover, .gallery-view-btn:hover {
     background-color: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-main);
 }
 
 .gallery-item:hover .gallery-img {
