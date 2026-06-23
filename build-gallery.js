@@ -154,6 +154,9 @@ GALLERY_DATA.forEach(item => {
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Pinterest Domain Verification -->
+    <meta name="p:domain_verify" content="30a35da5eaadfcd34c664bdaa6cf87c5"/>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${item.title} - ${engineNameFull} Prompt Example & Settings</title>
