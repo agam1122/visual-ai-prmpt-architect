@@ -407,6 +407,22 @@ const GALLERY_DATA = [
     engine: "midjourney",
     category: "render",
     image: "images/gallery_render.webp"
+  },
+  {
+    id: 51,
+    title: "Audi RSQ Concept Car",
+    prompt: "An analog film photograph of a sleek, black retro-futuristic concept supercar from the 1990s, side-profile view, parked in an empty city plaza with tall buildings in the background, moody overcast lighting, fine grain film texture, premium aesthetics, extremely realistic --ar 16:9 --v 6.0",
+    engine: "midjourney",
+    category: "photography",
+    image: "images/gallery_rsq_concept.webp"
+  },
+  {
+    id: 52,
+    title: "Vintage Concept Car with Model",
+    prompt: "An analog film photograph of a sleek black retro-futuristic concept supercar from the 1990s, three-quarter front view, parked next to a beautiful blonde model wearing a black outfit and black gloves in an empty city plaza, overcast sky, retro film grain, cinematic composition --ar 16:9 --v 6.0",
+    engine: "midjourney",
+    category: "photography",
+    image: "images/gallery_rsq_model.webp"
   }
 ];
 
